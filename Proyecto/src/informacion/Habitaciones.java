@@ -1,4 +1,4 @@
-package Informacion;
+package informacion;
 
 public class Habitaciones {
     private int idhabitacion;
