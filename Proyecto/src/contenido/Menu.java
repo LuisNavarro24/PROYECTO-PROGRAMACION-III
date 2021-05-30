@@ -1,11 +1,32 @@
 
 package contenido;
 
-public class Menu extends javax.swing.JFrame {
+import java.applet.AudioClip;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
+public class Menu extends javax.swing.JFrame {
+    AudioClip Sonido;
     public Menu() {
         initComponents();
-        this.setLocationRelativeTo(this);
+        musicaInicializar();
+        this.setLocationRelativeTo(this);                 
+    }
+    
+    public void musicaInicializar(){
+        Sonido = java.applet.Applet.newAudioClip(getClass().getResource("/musica/Torero.wav"));
+        Sonido.play();
+        ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/bocina1.png"));
+        Image conversion = imagen.getImage();
+        Image tam = conversion.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+        ImageIcon imagenRe = new ImageIcon(tam);
+        this.jLabelReproducirMusica.setIcon(imagenRe);
+        imagen = new ImageIcon(getClass().getResource("/imagenes/bocina2.png"));
+        conversion = imagen.getImage();
+        tam = conversion.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+        ImageIcon imagenDe = new ImageIcon(tam);
+        this.jLabelDetenerMusica.setIcon(imagenDe);
+        this.jLabelReproducirMusica.setVisible(false);        
     }
 
     /**
@@ -22,6 +43,9 @@ public class Menu extends javax.swing.JFrame {
         jLabelSalida = new javax.swing.JLabel();
         jLabelConsulta = new javax.swing.JLabel();
         jLabelSalir = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabelReproducirMusica = new javax.swing.JLabel();
+        jLabelDetenerMusica = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +88,48 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel2.setForeground(new java.awt.Color(0, 51, 153));
+
+        jLabelReproducirMusica.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelReproducirMusica.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelReproducirMusica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelReproducirMusicaMouseClicked(evt);
+            }
+        });
+
+        jLabelDetenerMusica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDetenerMusicaMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelDetenerMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelReproducirMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabelDetenerMusica, jLabelReproducirMusica});
+
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelReproducirMusica)
+                    .addComponent(jLabelDetenerMusica)))
+        );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabelDetenerMusica, jLabelReproducirMusica});
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -72,23 +138,27 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                    .addComponent(jLabelConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                    .addComponent(jLabelSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
+                    .addComponent(jLabelSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                    .addComponent(jLabelSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,7 +169,9 @@ public class Menu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,6 +195,20 @@ public class Menu extends javax.swing.JFrame {
     private void jLabelSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSalirMouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabelSalirMouseClicked
+
+    private void jLabelDetenerMusicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDetenerMusicaMouseClicked
+        // TODO add your handling code here:
+        Sonido.stop();
+        this.jLabelDetenerMusica.setVisible(false);
+        this.jLabelReproducirMusica.setVisible(true);
+    }//GEN-LAST:event_jLabelDetenerMusicaMouseClicked
+
+    private void jLabelReproducirMusicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelReproducirMusicaMouseClicked
+        // TODO add your handling code here:
+        Sonido.play();
+        this.jLabelDetenerMusica.setVisible(true);
+        this.jLabelReproducirMusica.setVisible(false);
+    }//GEN-LAST:event_jLabelReproducirMusicaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,9 +247,12 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelConsulta;
+    private javax.swing.JLabel jLabelDetenerMusica;
     private javax.swing.JLabel jLabelEntradas;
+    private javax.swing.JLabel jLabelReproducirMusica;
     private javax.swing.JLabel jLabelSalida;
     private javax.swing.JLabel jLabelSalir;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

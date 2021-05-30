@@ -1,13 +1,14 @@
 
 package contenido;
 
+import java.applet.AudioClip;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class PortadaHotel extends javax.swing.JFrame {
-
+    AudioClip Sonido;
     public PortadaHotel() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -15,6 +16,8 @@ public class PortadaHotel extends javax.swing.JFrame {
         this.jLabelLogo.setIcon(setIcono("/imagenes/Logo.jpg", jLabelLogo));
         this.jLabelNombre.setIcon(setIcono("/imagenes/Nombre.png", jLabelNombre));
         this.jLabelLema.setIcon(setIcono("/imagenes/Lema.png", jLabelLema));
+        Sonido = java.applet.Applet.newAudioClip(getClass().getResource("/musica/LoDejariaTodo.wav"));
+        Sonido.play();
     }
 
     /**
@@ -81,6 +84,7 @@ public class PortadaHotel extends javax.swing.JFrame {
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
         new Menu().setVisible(true);
+        Sonido.stop();
         this.dispose();
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
