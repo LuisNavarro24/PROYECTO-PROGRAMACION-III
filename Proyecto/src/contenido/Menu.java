@@ -2,6 +2,7 @@
 package contenido;
 
 import java.applet.AudioClip;
+import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -38,57 +39,24 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabelEntradas = new javax.swing.JLabel();
-        jLabelSalida = new javax.swing.JLabel();
-        jLabelConsulta = new javax.swing.JLabel();
-        jLabelSalir = new javax.swing.JLabel();
+        jDesktopPaneEscritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(new ImageIcon(getClass().getResource("/imagenes/FondoPantalla.jpg")).getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
         jPanel2 = new javax.swing.JPanel();
         jLabelReproducirMusica = new javax.swing.JLabel();
         jLabelDetenerMusica = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemEntradas = new javax.swing.JMenuItem();
+        jMenuItemSalidas = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menú", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 3, 25))); // NOI18N
-
-        jLabelEntradas.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        jLabelEntradas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelEntradas.setText("~~{Entradas}~~");
-        jLabelEntradas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelEntradasMouseClicked(evt);
-            }
-        });
-
-        jLabelSalida.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        jLabelSalida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelSalida.setText("~~{Salidas}~~");
-        jLabelSalida.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelSalidaMouseClicked(evt);
-            }
-        });
-
-        jLabelConsulta.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        jLabelConsulta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelConsulta.setText("~~{Consultas}~~");
-        jLabelConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelConsultaMouseClicked(evt);
-            }
-        });
-
-        jLabelSalir.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        jLabelSalir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelSalir.setText("~~{Salir}~~");
-        jLabelSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelSalirMouseClicked(evt);
-            }
-        });
-
-        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(252, 210, 234));
         jPanel2.setForeground(new java.awt.Color(0, 51, 153));
 
         jLabelReproducirMusica.setBackground(new java.awt.Color(255, 255, 255));
@@ -130,71 +98,68 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabelDetenerMusica, jLabelReproducirMusica});
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSalida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                    .addComponent(jLabelSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+        javax.swing.GroupLayout jDesktopPaneEscritorioLayout = new javax.swing.GroupLayout(jDesktopPaneEscritorio);
+        jDesktopPaneEscritorio.setLayout(jDesktopPaneEscritorioLayout);
+        jDesktopPaneEscritorioLayout.setHorizontalGroup(
+            jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneEscritorioLayout.createSequentialGroup()
+                .addGap(0, 622, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jDesktopPaneEscritorioLayout.setVerticalGroup(
+            jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(0, 368, Short.MAX_VALUE))
         );
+        jDesktopPaneEscritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jMenu1.setText("Menu");
+
+        jMenuItemEntradas.setText("Entradas");
+        jMenuItemEntradas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEntradasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemEntradas);
+
+        jMenuItemSalidas.setText("Salidas");
+        jMenuItemSalidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSalidasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemSalidas);
+
+        jMenu2.setText("Consultas");
+        jMenu1.add(jMenu2);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenuSalir.setText("Salir");
+        jMenuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuSalirMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuSalir);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jDesktopPaneEscritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jDesktopPaneEscritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabelEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEntradasMouseClicked
-        //new CheckIn().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabelEntradasMouseClicked
-
-    private void jLabelSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSalidaMouseClicked
-        //new CheckOut().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabelSalidaMouseClicked
-
-    private void jLabelConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelConsultaMouseClicked
-        //new Consultas().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabelConsultaMouseClicked
-
-    private void jLabelSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSalirMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_jLabelSalirMouseClicked
 
     private void jLabelDetenerMusicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDetenerMusicaMouseClicked
         // TODO add your handling code here:
@@ -209,6 +174,24 @@ public class Menu extends javax.swing.JFrame {
         this.jLabelDetenerMusica.setVisible(true);
         this.jLabelReproducirMusica.setVisible(false);
     }//GEN-LAST:event_jLabelReproducirMusicaMouseClicked
+
+    private void jMenuItemEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntradasActionPerformed
+        //CheckIn entrada = new CheckIn();
+        //this.jDesktopPaneEscritorio.add(entrada);
+        //entrada.show();
+    }//GEN-LAST:event_jMenuItemEntradasActionPerformed
+
+    private void jMenuItemSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalidasActionPerformed
+        //CheckOut entrada = new CheckOut();
+        //this.jDesktopPaneEscritorio.add(entrada);
+        //entrada.show();
+    }//GEN-LAST:event_jMenuItemSalidasActionPerformed
+
+    private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
+        Sonido.stop();
+        new PortadaHotel().setVisible(true); //Opcional
+        this.dispose();
+    }//GEN-LAST:event_jMenuSalirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -246,13 +229,15 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabelConsulta;
+    private javax.swing.JDesktopPane jDesktopPaneEscritorio;
     private javax.swing.JLabel jLabelDetenerMusica;
-    private javax.swing.JLabel jLabelEntradas;
     private javax.swing.JLabel jLabelReproducirMusica;
-    private javax.swing.JLabel jLabelSalida;
-    private javax.swing.JLabel jLabelSalir;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemEntradas;
+    private javax.swing.JMenuItem jMenuItemSalidas;
+    private javax.swing.JMenu jMenuSalir;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
