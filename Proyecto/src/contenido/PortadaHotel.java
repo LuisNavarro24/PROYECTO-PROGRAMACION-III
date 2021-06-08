@@ -3,12 +3,18 @@ package contenido;
 
 import java.applet.AudioClip;
 import java.awt.Image;
+import java.sql.SQLException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import org.apache.commons.codec.digest.DigestUtils;
+import informacion.MySqlConn;
 
 public class PortadaHotel extends javax.swing.JFrame {
     AudioClip Sonido;
+    MySqlConn conn= new MySqlConn();
+    
     public PortadaHotel() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -83,9 +89,34 @@ public class PortadaHotel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
-        new Menu().setVisible(true);
-        Sonido.stop();
-        this.dispose();
+        String cuenta, contraseña, query;
+        cuenta=this.jTextFieldUsuario.getText().trim();
+        query = "select * from cuentas where cuenta = "+"'"+cuenta+"'";
+        this.conn.Consult(query);
+        try{
+            String contrasenaMySql = this.conn.rs.getString(2);
+            char[] passw = this.jPasswordFieldContra.getPassword();
+            contraseña = new String(passw);
+            String contrasenaencriptada=DigestUtils.md5Hex(contraseña);
+            if(contrasenaMySql.equals(contrasenaencriptada)){
+                JOptionPane.showMessageDialog(this, "Bienvenido "+
+                this.conn.rs.getString(1)+" al sistema");
+                new Menu().setVisible(true);
+                 Sonido.stop();
+                 this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Error en la contraseña");
+                System.out.println("No existe la cuenta");
+            }
+
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(this, "No existe la cuenta");
+            System.out.println("No existe la cuenta");
+        }
+        
+        
+        
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     /**

@@ -5,7 +5,7 @@
  */
 package BDD;
 
-import Informacion.Habitaciones;
+import informacion.Habitaciones;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

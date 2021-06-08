@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package contenido;
-
+import informacion.MySqlConn;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -22,11 +23,33 @@ public class PortadaInicio extends javax.swing.JFrame {
     /**
      * Creates new form Pantalla1
      */
+    MySqlConn conn= new MySqlConn();
     public PortadaInicio() {
+        
         initComponents();
+     //control();
         this.setLocationRelativeTo(this);
         this.jLabel1.setIcon(setIcono("/imagenes/uaalogo-01.png", jLabel1));
+        
+        
+        
     }
+    public void control(){
+        String cuenta, contrasena, parte1, parte2, query;
+        cuenta="kpdelgado";
+        contrasena="I24desep69";
+        
+        parte1="insert into cuentas values (";
+        parte2="'"+cuenta+"'," + " MD5('"+contrasena+"'))";
+        query= parte1+parte2;
+        System.out.println(query);
+        int j= this.conn.Update(query);
+        if(j>0){
+            JOptionPane.showMessageDialog(this, "Cuenta Registrada...");
+            System.out.println("Cuenta registrada...");
+        }
+    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,6 +176,8 @@ public class PortadaInicio extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
