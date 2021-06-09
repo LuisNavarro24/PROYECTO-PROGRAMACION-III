@@ -1,3 +1,4 @@
+
 package informacion;
 
 public class Habitaciones {

@@ -1,6 +1,7 @@
 
 package contenido;
 
+import clasesinternas.*;
 import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -52,6 +53,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItemEntradas = new javax.swing.JMenuItem();
         jMenuItemSalidas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItemGaleria = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -110,7 +112,7 @@ public class Menu extends javax.swing.JFrame {
             jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 368, Short.MAX_VALUE))
+                .addGap(0, 388, Short.MAX_VALUE))
         );
         jDesktopPaneEscritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -133,6 +135,15 @@ public class Menu extends javax.swing.JFrame {
         jMenu1.add(jMenuItemSalidas);
 
         jMenu2.setText("Consultas");
+
+        jMenuItemGaleria.setText("Galeria");
+        jMenuItemGaleria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGaleriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemGaleria);
+
         jMenu1.add(jMenu2);
 
         jMenuBar1.add(jMenu1);
@@ -193,6 +204,12 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
+    private void jMenuItemGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGaleriaActionPerformed
+        Galeria gal = new Galeria();
+        this.jDesktopPaneEscritorio.add(gal);
+        gal.show();
+    }//GEN-LAST:event_jMenuItemGaleriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,6 +253,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemEntradas;
+    private javax.swing.JMenuItem jMenuItemGaleria;
     private javax.swing.JMenuItem jMenuItemSalidas;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JPanel jPanel2;
