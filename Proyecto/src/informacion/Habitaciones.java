@@ -1,37 +1,32 @@
-
 package informacion;
 
 public class Habitaciones {
     private int idhabitacion;
     private String numero;
-    private String piso;
+    
     private String descripcion;
     private String caracteristicas;
     private Double precio_diario;
     private String estado;
-    private String tipo_habitacion;
+    
+    
+    private String num_habi;
+    private String habitipo;
+    private String piso;
+    
+    private String nombre;
+    private String ciudad;
+    private int totpersonas;
+    private int extrapersona;
+
+    //poner el de la fecha
+    
 
     public Habitaciones() {
     }
 
-    public Habitaciones(int idhabitacion, String numero, String piso, String descripcion, String caracteristicas, Double precio_diario, String estado, String tipo_habitacion) {
-        this.idhabitacion = idhabitacion;
-        this.numero = numero;
-        this.piso = piso;
-        this.descripcion = descripcion;
-        this.caracteristicas = caracteristicas;
-        this.precio_diario = precio_diario;
-        this.estado = estado;
-        this.tipo_habitacion = tipo_habitacion;
-    }
 
-    public int getIdhabitacion() {
-        return idhabitacion;
-    }
-
-    public void setIdhabitacion(int idhabitacion) {
-        this.idhabitacion = idhabitacion;
-    }
+  
 
     public String getNumero() {
         return numero;
@@ -81,13 +76,7 @@ public class Habitaciones {
         this.estado = estado;
     }
 
-    public String getTipo_habitacion() {
-        return tipo_habitacion;
-    }
-
-    public void setTipo_habitacion(String tipo_habitacion) {
-        this.tipo_habitacion = tipo_habitacion;
-    }
+ 
     
     
 } //Fin de clase

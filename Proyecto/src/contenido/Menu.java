@@ -52,6 +52,7 @@ public class Menu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemEntradas = new javax.swing.JMenuItem();
         jMenuItemSalidas = new javax.swing.JMenuItem();
+        jMenuItemHuespedes = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemGaleria = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
@@ -105,14 +106,14 @@ public class Menu extends javax.swing.JFrame {
         jDesktopPaneEscritorioLayout.setHorizontalGroup(
             jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneEscritorioLayout.createSequentialGroup()
-                .addGap(0, 622, Short.MAX_VALUE)
+                .addGap(0, 669, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jDesktopPaneEscritorioLayout.setVerticalGroup(
             jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 388, Short.MAX_VALUE))
+                .addGap(0, 373, Short.MAX_VALUE))
         );
         jDesktopPaneEscritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -133,6 +134,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItemSalidas);
+
+        jMenuItemHuespedes.setText("Huespedes");
+        jMenuItemHuespedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHuespedesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemHuespedes);
 
         jMenu2.setText("Consultas");
 
@@ -187,15 +196,18 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelReproducirMusicaMouseClicked
 
     private void jMenuItemEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntradasActionPerformed
-        //CheckIn entrada = new CheckIn();
-        //this.jDesktopPaneEscritorio.add(entrada);
-        //entrada.show();
+         Sonido.stop();
+        CheckIn entrada = new CheckIn();
+        this.jDesktopPaneEscritorio.add(entrada);
+        entrada.show();
     }//GEN-LAST:event_jMenuItemEntradasActionPerformed
 
     private void jMenuItemSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalidasActionPerformed
-        //CheckOut entrada = new CheckOut();
-        //this.jDesktopPaneEscritorio.add(entrada);
-        //entrada.show();
+        Sonido.stop();
+        CheckOut out = new CheckOut();
+        this.jDesktopPaneEscritorio.add(out);
+        out.show();
+        
     }//GEN-LAST:event_jMenuItemSalidasActionPerformed
 
     private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
@@ -209,6 +221,14 @@ public class Menu extends javax.swing.JFrame {
         this.jDesktopPaneEscritorio.add(gal);
         gal.show();
     }//GEN-LAST:event_jMenuItemGaleriaActionPerformed
+
+    private void jMenuItemHuespedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHuespedesActionPerformed
+        // TODO add your handling code here:
+        Huespedes hue= new Huespedes();
+        this.jDesktopPaneEscritorio.add(hue);
+        hue.show();
+        
+    }//GEN-LAST:event_jMenuItemHuespedesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,6 +274,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemEntradas;
     private javax.swing.JMenuItem jMenuItemGaleria;
+    private javax.swing.JMenuItem jMenuItemHuespedes;
     private javax.swing.JMenuItem jMenuItemSalidas;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JPanel jPanel2;

@@ -1,21 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package contenido;
 
-/**
- *
- * @author kapu
- */
+import informacion.MySqlConn;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 public class Huespedes extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Huespedes
      */
+    
+    MySqlConn conn= new MySqlConn();
     public Huespedes() {
         initComponents();
+        HuespedList();
+    }
+    
+    public void HuespedList(){
+        String query = "select * from registro ORDER BY Nombre ASC";
+        this.conn.Consult(query);
+        int n =0;
+        try{
+            this.conn.rs.last();
+            n= this.conn.rs.getRow();
+            this.conn.rs.first();
+            
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        if(n!=0){
+            Object datos [][]= new Object[n][9];
+            for (int i = 0; i < n; i++) {
+                try{
+                    datos[i][0]= this.conn.rs.getInt(1);
+                    datos[i][1]= this.conn.rs.getString(2);
+                    datos[i][2]= this.conn.rs.getInt(3);
+                    datos[i][3]= this.conn.rs.getString(4);
+                    datos[i][4]= this.conn.rs.getString(5);
+                    datos[i][5]= this.conn.rs.getInt(6);
+                    datos[i][6]= this.conn.rs.getInt(7);
+                    datos[i][7]= this.conn.rs.getString(8);
+                    datos[i][8]= this.conn.rs.getInt(9);
+                    
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    System.out.println("Error 2...");
+                }
+                
+            }
+           String columnas[]={"Habitacion","Tipo","Piso","Nombre","Ciudad","Num_Huespedes","Huesped ex","Entrada","Dias/Fecha"};
+            jTableListado.setModel(new DefaultTableModel(datos,columnas));
+            System.out.println("Tabla lista");
+        }else{
+            JOptionPane.showMessageDialog(this,"No hay datos...");
+        
+    }
     }
 
     /**
@@ -29,7 +70,7 @@ public class Huespedes extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableListado = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setClosable(true);
@@ -41,7 +82,7 @@ public class Huespedes extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,23 +93,23 @@ public class Huespedes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableListado);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,6 +130,6 @@ public class Huespedes extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableListado;
     // End of variables declaration//GEN-END:variables
 }

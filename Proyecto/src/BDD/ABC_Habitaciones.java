@@ -94,7 +94,7 @@ public class ABC_Habitaciones {
             pst.setString(4, dts.getCaracteristicas());
             pst.setDouble(5, dts.getPrecio_diario());
             pst.setString(6, dts.getEstado());
-            pst.setString(7, dts.getTipo_habitacion());
+            //pst.setString(7, dts.getTipo_habitacion());
 
             int n = pst.executeUpdate();
 
@@ -123,8 +123,8 @@ public class ABC_Habitaciones {
             pst.setString(4, dts.getCaracteristicas());
             pst.setDouble(5, dts.getPrecio_diario());
             pst.setString(6, dts.getEstado());
-            pst.setString(7, dts.getTipo_habitacion());
-            pst.setInt(8, dts.getIdhabitacion());
+            //pst.setString(7, dts.getTipo_habitacion());
+            //pst.setInt(8, dts.getIdhabitacion());
 
             int n = pst.executeUpdate();
 
@@ -149,7 +149,7 @@ public class ABC_Habitaciones {
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
 
-            pst.setInt(1, dts.getIdhabitacion());
+            //pst.setInt(1, dts.getIdhabitacion());
 
             int n = pst.executeUpdate();
 
