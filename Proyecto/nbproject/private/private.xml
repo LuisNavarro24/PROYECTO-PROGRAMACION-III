@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/BDD/ABC_Habitaciones.java</file>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/Index/Main.java</file>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/contenido/Menu.java</file>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/BDD/Conectar_MySQL.java</file>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/contenido/PortadaInicio.java</file>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/contenido/PortadaHotel.java</file>
-            <file>file:/C:/Users/Navarro/Documents/GitHub/PROYECTO-PROGRAMACION-III/Proyecto/src/informacion/MySqlConn.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/informacion/Registro.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/contenido/PortadaHotel.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/contenido/CheckIn.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/contenido/CheckOut.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/contenido/Menu.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/Index/Main.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/contenido/Huespedes.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/contenido/PortadaInicio.java</file>
+            <file>file:/C:/Users/Green%20Lap/Desktop/Proyecto/src/informacion/Habitaciones.java</file>
         </group>
     </open-files>
 </project-private>
