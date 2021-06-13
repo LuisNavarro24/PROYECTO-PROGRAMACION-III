@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2021 a las 06:54:53
+-- Tiempo de generación: 13-06-2021 a las 04:41:30
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -84,24 +84,35 @@ INSERT INTO `habitacion` (`idhabitacion`, `numero`, `piso`, `descripcion`, `cara
 (3, '2', '2', 'x', 'y', '500.00', 'Disponible', 'familiar'),
 (4, '3', '1', 'xdvd', 'xcvbxc', '300.00', 'Disponible', 'individual'),
 (5, '4', '1', 'sdfg', 'sdfsdf', '699.00', 'Disponible', 'individual'),
-(6, '7', '2', 'Samuel ', 'kk', '5.00', 'OCUPADO', 'INDIVIDUAL');
+(6, '7', '2', 'Samuel ', 'kk', '5.00', 'OCUPADO', 'INDIVIDUAL'),
+(7, '12', '2', 'se', 'sd', '111.00', 'OCUPADO', 'FAMILIAR'),
+(8, '122', '1', 'sd', 'sdd', '1212.00', 'OCUPADO', 'FAMILIAR'),
+(9, '22', '3', 'dsd', 'sd', '12.00', 'DISPONIBLE', 'INDIVIDUAL'),
+(10, '53', '2', 'rfrf', 'frfrfrf', '123.00', 'OCUPADO', 'INDIVIDUAL');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pago`
+-- Estructura de tabla para la tabla `historial`
 --
 
-CREATE TABLE `pago` (
-  `idpago` int(11) NOT NULL,
-  `idreserva` int(11) NOT NULL,
-  `tipo_comprobante` varchar(20) NOT NULL,
-  `num_comprobante` varchar(20) NOT NULL,
-  `igv` decimal(4,2) NOT NULL,
-  `total_pago` decimal(7,2) NOT NULL,
-  `fecha_emision` date NOT NULL,
-  `fecha_pago` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `historial` (
+  `nombre` varchar(20) NOT NULL,
+  `habitacion` int(3) NOT NULL,
+  `ingreso` date NOT NULL,
+  `salida` date NOT NULL,
+  `pago_tot` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `historial`
+--
+
+INSERT INTO `historial` (`nombre`, `habitacion`, `ingreso`, `salida`, `pago_tot`) VALUES
+('Antonio', 8, '2021-07-12', '2021-07-13', 901),
+('Imelda', 3, '2021-07-12', '2021-07-13', 901),
+('Juan Jose Delgado', 12, '2021-07-12', '2021-07-13', 1200),
+('Samuel', 1, '2021-07-12', '2021-07-14', 1802);
 
 -- --------------------------------------------------------
 
@@ -145,6 +156,34 @@ CREATE TABLE `prueba1` (
   `idpersona` int(11) NOT NULL,
   `codigo_cliente` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `registro`
+--
+
+CREATE TABLE `registro` (
+  `Num_Habitacion` int(3) NOT NULL,
+  `Tipo_Habitacion` varchar(20) NOT NULL,
+  `Piso` int(3) NOT NULL,
+  `Nombre` varchar(20) NOT NULL,
+  `Ciudad` varchar(20) NOT NULL,
+  `Num_Huespedes` int(10) NOT NULL,
+  `Num_HuespedesExtra` int(3) NOT NULL,
+  `Entrada` date NOT NULL,
+  `Dias` int(3) NOT NULL,
+  `salida` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `registro`
+--
+
+INSERT INTO `registro` (`Num_Habitacion`, `Tipo_Habitacion`, `Piso`, `Nombre`, `Ciudad`, `Num_Huespedes`, `Num_HuespedesExtra`, `Entrada`, `Dias`, `salida`) VALUES
+(2, 'Individual', 1, 'Javier', 'Ags', 1, 1, '2021-07-12', 1, '2021-07-13'),
+(3, 'Individual', 1, 'Mariana Lopez', 'Ags', 1, 2, '2021-07-12', 2, '2021-07-14'),
+(12, 'Doble', 1, 'Isela Delgado', 'Aguascalientes', 2, 2, '2021-07-12', 2, '2021-07-14');
 
 -- --------------------------------------------------------
 
@@ -205,11 +244,10 @@ ALTER TABLE `habitacion`
   ADD PRIMARY KEY (`idhabitacion`);
 
 --
--- Indices de la tabla `pago`
+-- Indices de la tabla `historial`
 --
-ALTER TABLE `pago`
-  ADD PRIMARY KEY (`idpago`),
-  ADD KEY `fk_pago_reserva_idx` (`idreserva`);
+ALTER TABLE `historial`
+  ADD PRIMARY KEY (`nombre`);
 
 --
 -- Indices de la tabla `persona`
@@ -231,6 +269,12 @@ ALTER TABLE `producto`
 ALTER TABLE `prueba1`
   ADD PRIMARY KEY (`idpersona`),
   ADD UNIQUE KEY `codigo_cliente_UNIQUE` (`codigo_cliente`);
+
+--
+-- Indices de la tabla `registro`
+--
+ALTER TABLE `registro`
+  ADD PRIMARY KEY (`Num_Habitacion`);
 
 --
 -- Indices de la tabla `reserva`
@@ -262,13 +306,7 @@ ALTER TABLE `consumo`
 -- AUTO_INCREMENT de la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
-  MODIFY `idhabitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `pago`
---
-ALTER TABLE `pago`
-  MODIFY `idpago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idhabitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -298,12 +336,6 @@ ALTER TABLE `reserva`
 ALTER TABLE `consumo`
   ADD CONSTRAINT `fk_consumo_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_consumo_reserva` FOREIGN KEY (`idreserva`) REFERENCES `reserva` (`idreserva`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `pago`
---
-ALTER TABLE `pago`
-  ADD CONSTRAINT `fk_pago_reserva` FOREIGN KEY (`idreserva`) REFERENCES `reserva` (`idreserva`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `prueba1`
