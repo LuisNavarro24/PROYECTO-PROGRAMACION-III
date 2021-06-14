@@ -48,16 +48,21 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelReproducirMusica = new javax.swing.JLabel();
         jLabelDetenerMusica = new javax.swing.JLabel();
+        jButtonEstadisticas = new javax.swing.JButton();
+        jButtonIngresos = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemEntradas = new javax.swing.JMenuItem();
         jMenuItemSalidas = new javax.swing.JMenuItem();
         jMenuItemHuespedes = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItemServiciosExtra = new javax.swing.JMenuItem();
+        jMenuConsultas = new javax.swing.JMenu();
         jMenuItemGaleria = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jDesktopPaneEscritorio.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(252, 210, 234));
         jPanel2.setForeground(new java.awt.Color(0, 51, 153));
@@ -101,6 +106,15 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabelDetenerMusica, jLabelReproducirMusica});
 
+        jButtonEstadisticas.setText("Estadisticas");
+
+        jButtonIngresos.setText("Ingresos Totales");
+        jButtonIngresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jDesktopPaneEscritorioLayout = new javax.swing.GroupLayout(jDesktopPaneEscritorio);
         jDesktopPaneEscritorio.setLayout(jDesktopPaneEscritorioLayout);
         jDesktopPaneEscritorioLayout.setHorizontalGroup(
@@ -108,14 +122,26 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addGap(0, 669, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneEscritorioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEstadisticas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonIngresos)
+                .addGap(19, 19, 19))
         );
         jDesktopPaneEscritorioLayout.setVerticalGroup(
             jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 373, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
+                .addGroup(jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonIngresos)
+                    .addComponent(jButtonEstadisticas))
+                .addContainerGap())
         );
         jDesktopPaneEscritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPaneEscritorio.setLayer(jButtonEstadisticas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPaneEscritorio.setLayer(jButtonIngresos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Menu");
 
@@ -143,7 +169,15 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemHuespedes);
 
-        jMenu2.setText("Consultas");
+        jMenuItemServiciosExtra.setText("Servicios extra");
+        jMenuItemServiciosExtra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemServiciosExtraActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemServiciosExtra);
+
+        jMenuConsultas.setText("Consultas");
 
         jMenuItemGaleria.setText("Galeria");
         jMenuItemGaleria.addActionListener(new java.awt.event.ActionListener() {
@@ -151,9 +185,9 @@ public class Menu extends javax.swing.JFrame {
                 jMenuItemGaleriaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemGaleria);
+        jMenuConsultas.add(jMenuItemGaleria);
 
-        jMenu1.add(jMenu2);
+        jMenu1.add(jMenuConsultas);
 
         jMenuBar1.add(jMenu1);
 
@@ -230,6 +264,23 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemHuespedesActionPerformed
 
+    private void jButtonIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresosActionPerformed
+        // TODO add your handling code here:
+       //falta 
+        dispose();
+        
+    }//GEN-LAST:event_jButtonIngresosActionPerformed
+
+    private void jMenuItemServiciosExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServiciosExtraActionPerformed
+        // TODO add your handling code here:
+        
+         Servicios ser= new Servicios();
+        this.jDesktopPaneEscritorio.add(ser);
+        ser.show();
+        
+        
+    }//GEN-LAST:event_jMenuItemServiciosExtraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,16 +317,19 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEstadisticas;
+    private javax.swing.JButton jButtonIngresos;
     private javax.swing.JDesktopPane jDesktopPaneEscritorio;
     private javax.swing.JLabel jLabelDetenerMusica;
     private javax.swing.JLabel jLabelReproducirMusica;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenuItem jMenuItemEntradas;
     private javax.swing.JMenuItem jMenuItemGaleria;
     private javax.swing.JMenuItem jMenuItemHuespedes;
     private javax.swing.JMenuItem jMenuItemSalidas;
+    private javax.swing.JMenuItem jMenuItemServiciosExtra;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

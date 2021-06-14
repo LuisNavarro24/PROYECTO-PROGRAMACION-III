@@ -44,6 +44,25 @@ public class CheckIn extends javax.swing.JInternalFrame {
        
         initComponents();
          fecha();
+         totalhabit();
+    }
+    
+    public void totalhabit(){
+        String registro="registro";
+        String query = "select * from registro";
+        this.conn.Consult(query);
+        int n=0;
+        int dispo=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+            System.out.println(n);
+            this.jLabelDis.setText(String.valueOf(30-n));
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        
     }
     
     
@@ -100,6 +119,8 @@ public class CheckIn extends javax.swing.JInternalFrame {
         jLabeltipo = new javax.swing.JLabel();
         jLabelExtra = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelDis = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 153, 153));
         setClosable(true);
@@ -190,6 +211,12 @@ public class CheckIn extends javax.swing.JInternalFrame {
 
         jLabelExtra.setText("En espera...");
 
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel4.setText("Hab. Disponibles");
+
+        jLabelDis.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabelDis.setText("En espera");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -224,15 +251,6 @@ public class CheckIn extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabelNombre)
-                        .addGap(32, 32, 32)
-                        .addComponent(jTextFieldNomCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -254,13 +272,32 @@ public class CheckIn extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addGap(29, 29, 29)
-                                .addComponent(jButtonChecar)))))
+                                .addComponent(jButtonChecar))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabelNombre)
+                        .addGap(32, 32, 32)
+                        .addComponent(jTextFieldNomCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabelDis))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabelDis))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNomCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,17 +386,16 @@ public class CheckIn extends javax.swing.JInternalFrame {
         extra=jComboBoxExtra.getSelectedIndex();
         dias=Integer.valueOf(this.jTextFieldDias.getText().trim());
       
-        if(piso==1){
-        if(habi>=1&&habi<=10||habi>=16&&habi<=20){
+        
+        if((habi>=1&&habi<=10)||(habi>=16&&habi<=20)){
             tipo_habi=1;
             habit="Individual";
-        }else if(habi>=11&&habi<=13||habi>=21&&habi<=26){
+        }else if((habi>=11&&habi<=13)||(habi>=21&&habi<=26)){
             tipo_habi=2;
             habit="Doble";
         }else{
             tipo_habi=3;
             habit="Familiar";
-        }
         }
         
         if(tipo_habi==1){
@@ -406,7 +442,7 @@ public class CheckIn extends javax.swing.JInternalFrame {
         String query = parte1 + parte2;
         int j = this.conn.Update(query); 
         JOptionPane.showMessageDialog(this,"Huesped registrado");
-        
+        totalhabit();
         
        new Recibo(habi).setVisible(true); 
         dispose();
@@ -511,10 +547,12 @@ public class CheckIn extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelDis;
     private javax.swing.JLabel jLabelExtra;
     private javax.swing.JLabel jLabelFechaIn;
     private javax.swing.JLabel jLabelNombre;
