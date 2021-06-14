@@ -1,39 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package contenido;
 
 import informacion.MySqlConn;
+import informacion.Servicio;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author kapu
- */
+
 public class CheckOut extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form CheckOut
-     */
-    
+  
     private int precio1=900;
      private int precio2=1200;
      private int precio3=1800;
-     private int extra=200;
+     private int extrap=200;
      
      private int tipo1 =1;
      private int tipo2 =2;
      private int tipo3 =3;
+     
+     private int limp=400;
+     private int caf=500;
+     private int spa=600;
+     private int gym=700;
     
     
     
     MySqlConn conn= new MySqlConn();
+    
+    ArrayList <Servicio> lista = new ArrayList();
     public CheckOut() {
         initComponents();
         fecha();
@@ -41,7 +40,7 @@ public class CheckOut extends javax.swing.JInternalFrame {
     
      public void fecha(){
         Calendar fecha = new GregorianCalendar();  
-     
+        String fechaout="";
         int anio = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH);
         int dia = fecha.get(Calendar.DAY_OF_MONTH);  
@@ -72,7 +71,7 @@ public class CheckOut extends javax.swing.JInternalFrame {
         }
         if(n!=0){
             System.out.println("n  "+n);
-            Object datos [][]= new Object[n][9];
+            Object datos [][]= new Object[n][10];
             for (int i = 0; i < n; i++) {
                 try{
                     datos[i][0]= this.conn.rs.getInt(1);
@@ -84,6 +83,7 @@ public class CheckOut extends javax.swing.JInternalFrame {
                     datos[i][6]= this.conn.rs.getInt(7);
                     datos[i][7]= this.conn.rs.getString(8);
                     datos[i][8]= this.conn.rs.getInt(9);
+                    datos[i][9]=this.conn.rs.getString(10);
                     
                     this.conn.rs.next();
                 }catch(Exception e){
@@ -93,10 +93,54 @@ public class CheckOut extends javax.swing.JInternalFrame {
             }
             String columnas[]={"Habitacion","Tipo","Piso","Nombre","Ciudad","Num_Huespedes","Huesped ex","Entrada","Dias"};
             jTableCheckOut.setModel(new DefaultTableModel(datos,columnas));
-            System.out.println("Tabla lista");
+            //System.out.println("Tabla lista");
+            
+            
+            
+            
         }else{
             JOptionPane.showMessageDialog(this, "No hay datos...");
         }
+        
+        String query2 = "select * from servicios where Num_Habitacion = "+"'"+
+                    Integer.valueOf(this.jTextFieldHabi.getText())+"'";
+        this.conn.Consult(query2);
+        int n2=0;
+        try{
+            this.conn.rs.last();
+            n2=this.conn.rs.getRow();
+            this.conn.rs.first();
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        if(n2!=0){
+            //System.out.println("n  "+n);
+            Object datos [][]= new Object[n][6];
+            for (int i = 0; i < n; i++) {
+                try{
+                    
+                    datos[i][0]= this.conn.rs.getInt(3);
+                    datos[i][1]= this.conn.rs.getInt(4);
+                    datos[i][2]= this.conn.rs.getInt(5);
+                    datos[i][3]= this.conn.rs.getInt(6);
+                  
+                    
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    System.out.println("Error 2...");
+                }
+                
+            }
+            String columnas[]={"Limpieza","Cafeteria","Spa","Gimnasio"};
+            jTableServicios.setModel(new DefaultTableModel(datos,columnas));
+            //System.out.println("Tabla lista");
+        }else{
+            //JOptionPane.showMessageDialog(this, "No hay datos...");
+        }
+        
+        
+        
+        
      }
      
     /**
@@ -117,6 +161,8 @@ public class CheckOut extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabelFechafin = new javax.swing.JLabel();
         jButtonBuscar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableServicios = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -152,17 +198,20 @@ public class CheckOut extends javax.swing.JInternalFrame {
             }
         });
 
+        jTableServicios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTableServicios);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(jButtonCheckOut)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
@@ -175,6 +224,18 @@ public class CheckOut extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabelFechafin)
                 .addGap(153, 153, 153))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonCheckOut)
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,11 +247,13 @@ public class CheckOut extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabelFechafin)
                     .addComponent(jButtonBuscar))
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(jButtonCheckOut)
-                .addGap(71, 71, 71))
+                .addGap(226, 226, 226))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,12 +281,18 @@ public class CheckOut extends javax.swing.JInternalFrame {
         
        
         String hab= this.jTextFieldHabi.getText().trim();
+        String fechaout="",fechain="";
        String query= "select * from registro where Num_Habitacion= "+"'"+hab+"'";
-        
+       String query2;
         int pisod=0,tipopiso,dias=0,extra=0,habi=0;
-        String tipohab="";
-        
+        String tipohab;
+        String nombre="";
+        int pagotot=0;
         int cuentatot=0;
+        int k=0;
+        String sen="Individual";
+        String dob="Doble";
+        String fam="Familiar";
         
         this.conn.Consult(query);
         int n =0;
@@ -235,10 +304,10 @@ public class CheckOut extends javax.swing.JInternalFrame {
             this.conn.rs.first();
             
         }catch(Exception e){
-            System.out.println("Error 1...");
+            System.out.println("No hay datos");
         }
         if(n!=0){
-            Object datos [][]= new Object[n][9];
+            Object datos [][]= new Object[n][10];
             for (int i = 0; i < n; i++) {
                 try{
                     datos[i][0]= this.conn.rs.getInt(1);
@@ -250,14 +319,91 @@ public class CheckOut extends javax.swing.JInternalFrame {
                     pisod=this.conn.rs.getInt(3);
                     
                     datos[i][3]= this.conn.rs.getString(4);
+                    nombre=this.conn.rs.getString(4);
                     datos[i][4]= this.conn.rs.getString(5);
                     datos[i][5]= this.conn.rs.getInt(6);
                     datos[i][6]= this.conn.rs.getInt(7);
                     extra=this.conn.rs.getInt(7);
                     datos[i][7]= this.conn.rs.getString(8);
+                    fechain=this.conn.rs.getString(8);
                     datos[i][8]= this.conn.rs.getInt(9);
                     dias=this.conn.rs.getInt(9);
+                    datos[i][8]= this.conn.rs.getString(10);
+                    fechaout=this.conn.rs.getString(10);
+                 
+                if(tipohab.equalsIgnoreCase(sen)){
+            //cambiar por un equals tipo con indivual 
+                cuentatot=(precio1*dias);
+                cuentatot=cuentatot+(extrap*extra);
+                
+                System.out.println("Sencilla "+cuentatot);
+            }else if(tipohab.equalsIgnoreCase(dob)){
+                cuentatot=(precio2*dias);
+                 cuentatot=cuentatot+(extrap*extra);
+                 System.out.println("Doble "+cuentatot);
+                 
+            }else if (tipohab.equalsIgnoreCase(fam)){
+              cuentatot=(precio3*dias);
+              cuentatot=cuentatot+(extrap*extra);
+              System.out.println("Triple "+cuentatot);
+            }    
                     
+                   
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    System.out.println("Error...");
+                }
+                
+            }
+  
+        }
+     
+        
+        System.out.println("Pago por la habitacion: "+cuentatot);
+        
+        
+        String query3= "select * from servicios where Num_Habitacion= "+"'"+hab+"'";
+        this.conn.Consult(query3);
+        int lim=0,caf=0,sp=0,gy=0;
+        try{
+            this.conn.rs.last();
+            n= this.conn.rs.getRow();
+            this.conn.rs.first();
+            
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        if(n!=0){
+ 
+            for (int i = 0; i < n; i++) {
+                try{
+                    if(this.conn.rs.getInt(3)==1){
+                        lim=this.limp;
+                        System.out.println(lim);
+                        cuentatot=cuentatot+lim;
+                    }else{
+                        lim=0;
+                    }
+                    if(this.conn.rs.getInt(4)==1){
+                        caf=this.caf;
+                        cuentatot=cuentatot+caf;
+                    }else{
+                        caf=0;
+                    }
+                    if(this.conn.rs.getInt(5)==1){
+                        sp=this.spa;
+                        cuentatot=cuentatot+sp;
+                    }else{
+                        sp=0;
+                    }
+                    if(this.conn.rs.getInt(6)==1){
+                        gy=this.gym;
+                        cuentatot=cuentatot+gy;
+                    }else{
+                        gy=0;
+                    }
+                    Servicio ser= new Servicio(lim,caf,sp,gy);
+                    lista.add(ser);
                     
                     this.conn.rs.next();
                 }catch(Exception e){
@@ -265,36 +411,40 @@ public class CheckOut extends javax.swing.JInternalFrame {
                 }
                 
             }
-            
-       if(tipohab=="Individual"){
-           cuentatot=precio1*dias;
-           cuentatot+=extra*dias;
-       }else if(tipohab=="Doble"){
-           cuentatot=precio2*dias;
-           cuentatot+=extra*dias;
-       }else{
-           cuentatot=precio3*dias;
-           cuentatot+=extra*dias;
-       }  
-        }
+          
+        }else{
+            JOptionPane.showMessageDialog(this,"No hay datos...");
+        
+    }
+        
+        
+        
          //Apartado de calculo de la cuenta
         
         
-        
-        
-        
-       
+             
+                    
         if(hab.isEmpty()){
             JOptionPane.showMessageDialog(this, "Numero de habitacion vacio");
         }else{
-            query= "delete from registro where Num_Habitacion= "+"'"+hab+"'";//completa sentencia Mysql
-            int j= this.conn.Update(query);
-            if(j>0)
-                 JOptionPane.showMessageDialog(this, "Baja confirmada");
-            else
-                 JOptionPane.showMessageDialog(this, "La baja no se puede realizar");
+            //En esta consulta guardo en el historial el check out para la cuenta del hotel
+            String parte1 = "Insert into historial (nombre, habitacion, ingreso, salida, pago_tot) VALUES (";
+                     String parte2 = "'"+nombre+"','"+habi+"','"+fechain+"','"+fechaout+"','"+cuentatot+"')";
+                    query2 = parte1 + parte2;
+            this.conn.Update(query2);           
+            System.out.println(nombre);
             
+            //Eliminacion dl huesped en la lista de disponibles y ocupados
+            query= "delete from registro where Num_Habitacion= "+"'"+hab+"'";
+            int j= this.conn.Update(query);
+            if(j>0){
+                 JOptionPane.showMessageDialog(this, "Baja confirmada");
             JOptionPane.showMessageDialog(this, "A pagar"+cuentatot);
+                 
+            }else
+                 JOptionPane.showMessageDialog(this, "No hay seleccion de huesped");
+            
+            //JOptionPane.showMessageDialog(this, "A pagar"+cuentatot);
         }
                    // TODO add your handling code here:
         
@@ -311,7 +461,9 @@ public class CheckOut extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelFechafin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableCheckOut;
+    private javax.swing.JTable jTableServicios;
     private javax.swing.JTextField jTextFieldHabi;
     // End of variables declaration//GEN-END:variables
 }
