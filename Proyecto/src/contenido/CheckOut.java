@@ -1,12 +1,23 @@
 
 package contenido;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import informacion.MySqlConn;
 import informacion.Servicio;
+import java.io.FileOutputStream;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -285,7 +296,7 @@ public class CheckOut extends javax.swing.JInternalFrame {
        String query= "select * from registro where Num_Habitacion= "+"'"+hab+"'";
        String query2;
         int pisod=0,tipopiso,dias=0,extra=0,habi=0;
-        String tipohab;
+        String tipohab="";
         String nombre="";
         int pagotot=0;
         int cuentatot=0;
@@ -293,6 +304,10 @@ public class CheckOut extends javax.swing.JInternalFrame {
         String sen="Individual";
         String dob="Doble";
         String fam="Familiar";
+        String ciudad="";
+        int hues=0;
+        int costo=0;
+        int pago=0;
         
         this.conn.Consult(query);
         int n =0;
@@ -307,47 +322,41 @@ public class CheckOut extends javax.swing.JInternalFrame {
             System.out.println("No hay datos");
         }
         if(n!=0){
-            Object datos [][]= new Object[n][10];
+            //Object datos [][]= new Object[n][10];
             for (int i = 0; i < n; i++) {
                 try{
-                    datos[i][0]= this.conn.rs.getInt(1);
                     habi=this.conn.rs.getInt(1);
-                    datos[i][1]= this.conn.rs.getString(2);
                     tipohab=this.conn.rs.getString(2);
-                    System.out.println(tipohab);
-                    datos[i][2]= this.conn.rs.getInt(3);
                     pisod=this.conn.rs.getInt(3);
-                    
-                    datos[i][3]= this.conn.rs.getString(4);
                     nombre=this.conn.rs.getString(4);
-                    datos[i][4]= this.conn.rs.getString(5);
-                    datos[i][5]= this.conn.rs.getInt(6);
-                    datos[i][6]= this.conn.rs.getInt(7);
+                    ciudad=this.conn.rs.getString(5);
+                    hues= this.conn.rs.getInt(6);
                     extra=this.conn.rs.getInt(7);
-                    datos[i][7]= this.conn.rs.getString(8);
                     fechain=this.conn.rs.getString(8);
-                    datos[i][8]= this.conn.rs.getInt(9);
                     dias=this.conn.rs.getInt(9);
-                    datos[i][8]= this.conn.rs.getString(10);
                     fechaout=this.conn.rs.getString(10);
-                 
+                    
                 if(tipohab.equalsIgnoreCase(sen)){
-            //cambiar por un equals tipo con indivual 
+                costo=precio1;
+                
                 cuentatot=(precio1*dias);
-                cuentatot=cuentatot+(extrap*extra);
+                cuentatot=cuentatot+(extrap*extra*dias);
                 
                 System.out.println("Sencilla "+cuentatot);
             }else if(tipohab.equalsIgnoreCase(dob)){
+                costo=precio2;
                 cuentatot=(precio2*dias);
-                 cuentatot=cuentatot+(extrap*extra);
+                 cuentatot=cuentatot+(extrap*extra*dias);
                  System.out.println("Doble "+cuentatot);
                  
             }else if (tipohab.equalsIgnoreCase(fam)){
-              cuentatot=(precio3*dias);
-              cuentatot=cuentatot+(extrap*extra);
+              costo=precio3;
+                cuentatot=(precio3*dias);
+              cuentatot=cuentatot+(extrap*extra*dias);
               System.out.println("Triple "+cuentatot);
             }    
-                    
+               
+                pago=cuentatot;
                    
                     this.conn.rs.next();
                 }catch(Exception e){
@@ -379,31 +388,38 @@ public class CheckOut extends javax.swing.JInternalFrame {
                 try{
                     if(this.conn.rs.getInt(3)==1){
                         lim=this.limp;
-                        System.out.println(lim);
+                        //System.out.println(lim);
                         cuentatot=cuentatot+lim;
+                        Servicio ser= new Servicio("Limpieza",limp);
+                        lista.add(ser);
                     }else{
                         lim=0;
                     }
                     if(this.conn.rs.getInt(4)==1){
                         caf=this.caf;
                         cuentatot=cuentatot+caf;
+                        Servicio ser= new Servicio("Cafeteria",caf);
+                        lista.add(ser);
                     }else{
                         caf=0;
                     }
                     if(this.conn.rs.getInt(5)==1){
                         sp=this.spa;
                         cuentatot=cuentatot+sp;
+                        Servicio ser= new Servicio("Spa",spa);
+                        lista.add(ser);
                     }else{
                         sp=0;
                     }
                     if(this.conn.rs.getInt(6)==1){
                         gy=this.gym;
                         cuentatot=cuentatot+gy;
+                        Servicio ser= new Servicio("Gimansio",gym);
+                        lista.add(ser);
                     }else{
                         gy=0;
                     }
-                    Servicio ser= new Servicio(lim,caf,sp,gy);
-                    lista.add(ser);
+                    
                     
                     this.conn.rs.next();
                 }catch(Exception e){
@@ -411,18 +427,128 @@ public class CheckOut extends javax.swing.JInternalFrame {
                 }
                 
             }
+            
+      //  generapdf();    
           
         }else{
-            JOptionPane.showMessageDialog(this,"No hay datos...");
+           // JOptionPane.showMessageDialog(this,"No hay datos...");
+        }
         
-    }
+        String list="";
+        for (int i = 0; i < lista.size(); i++) {
+            lista.toString();
+        }
+        
+        Date d = new Date();
+        String fecha="                                              "+d;
+        
+            String tit=nombre+".pdf";
+            System.out.println("titulo");
+            //String nom="Nombre del huesped: "+nombre;
+            try{
+            //Phrase texto = new Phrase();
+            Document pdf = new Document();
+            PdfWriter.getInstance(pdf, new FileOutputStream(tit));
+            Paragraph titulo = new Paragraph("Hotel Chayanne",FontFactory.getFont("timesnewroman",12,Font.ITALIC,BaseColor.PINK));
+            titulo.setAlignment(800);
+            pdf.open();
+           
+            Paragraph ubi=new Paragraph("                     Paseo de los Cocoteros s/n, Flamingos, 63732 Nuevo Vallarta, Nay.");
+            Paragraph salto = new Paragraph ("\n"); 
+            
+            Image img =Image.getInstance("Logo.png");
+            Image img2 = Image.getInstance("Lema.png");
+            Image img3 =Image.getInstance("Firma.png");
+            
+            img.setAlignment(5);//posiciona una imagen o texto creo...
+            img2.setAlignment(5);
+            img3.setAlignment(5);
+           // img.getAlignment();
+            pdf.add(titulo);
+            pdf.add(salto);
+            pdf.add(img);
+            //pdf.add(salto);
+            pdf.add(img2);
+            pdf.add(ubi);
+            pdf.add(salto);
+            Paragraph fech = new Paragraph (fecha);
+            pdf.add(fech);
+            pdf.add(salto);
+            Paragraph nom = new Paragraph("Nombre del huesped: "+nombre);
+            Paragraph ciu = new Paragraph("Ciudad de origen: "+ciudad);
+            Paragraph ent = new Paragraph("Fecha de ingreso: "+fechain);
+            Paragraph sal = new Paragraph("Fecha de salida: "+fechaout);
+            Paragraph tha = new Paragraph("Tipo de habitacion: "+tipohab);
+            Paragraph cos = new Paragraph("Costo de habitacion: "+costo);
+            Paragraph dia = new Paragraph("Dias de hospedaje: "+dias);
+            Paragraph tar = new Paragraph("Total a pagar sin cargos extra: "+pago);
+            Paragraph tot = new Paragraph("Total a pagar con cargos extra: "+cuentatot);
+            Paragraph lis = new Paragraph("Lista de cargos: "+lista.toString());
+            
+            Paragraph lin = new Paragraph("                                    -----------------------------------------------------------------------");
+            Paragraph bos = new Paragraph("                                             Angela Maria Gallegos Martinez(Gerente Ejecutivo");
+            Paragraph men = new Paragraph("                                           ¡Gracias por elegirnos, Chayanne agradece su visita!");
+    
+            
+            pdf.add(nom);//nombre huesped
+            //pdf.add(salto);
+             pdf.add(ciu);//ciudad huesped
+            //pdf.add(salto);
+             pdf.add(ent);//fecha ingreso
+            //pdf.add(salto);
+             pdf.add(sal);//fecha salida
+            //pdf.add(salto);
+             pdf.add(tha);//tipo de habitacion
+            //pdf.add(salto);
+             pdf.add(cos);//costo habitacion
+            //pdf.add(salto);
+             pdf.add(dia);//dias
+            //pdf.add(salto);
+             pdf.add(tar);//tarida sin cargos extra
+           // pdf.add(salto);
+             pdf.add(tot);//cargos extra
+            //pdf.add(salto);
+            if(lista.size()!=0){
+            pdf.add(lis);//servicios    
+           // pdf.add(salto);
+            }
+            pdf.add(salto);
+            pdf.add(img3);
+            pdf.add(lin);
+            pdf.add(bos);
+            pdf.add(men);
+            /*Paragraph texto1 = new Paragraph (nomesc);
+            pdf.add(texto1);
+            
+           Paragraph texto2 = new Paragraph (nomalu);
+            pdf.add(texto2);
+             Paragraph texto3 = new Paragraph (motivo);
+            pdf.add(texto3);
+            Paragraph texto6 = new Paragraph (firma);
+            pdf.add(texto6);
+            pdf.add(img2);
+            
+           
+            pdf.add(salto);
+            pdf.add(salto);
+            pdf.add(salto);
+             Paragraph texto4 = new Paragraph (fecha);
+            pdf.add(texto4);
+             Paragraph texto5 = new Paragraph (ciudad);
+            pdf.add(texto5);
+            */
+       
+            pdf.close();
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+            
         
         
         
-         //Apartado de calculo de la cuenta
         
         
-             
                     
         if(hab.isEmpty()){
             JOptionPane.showMessageDialog(this, "Numero de habitacion vacio");
@@ -441,17 +567,23 @@ public class CheckOut extends javax.swing.JInternalFrame {
                  JOptionPane.showMessageDialog(this, "Baja confirmada");
             JOptionPane.showMessageDialog(this, "A pagar"+cuentatot);
                  
-            }else
+            }else{
                  JOptionPane.showMessageDialog(this, "No hay seleccion de huesped");
-            
-            //JOptionPane.showMessageDialog(this, "A pagar"+cuentatot);
-        }
+
+            }
                    // TODO add your handling code here:
         
-        
+        } 
         
     }//GEN-LAST:event_jButtonCheckOutActionPerformed
 
+    
+//public void generapdf() throws URISyntaxException {
+    
+//}    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;

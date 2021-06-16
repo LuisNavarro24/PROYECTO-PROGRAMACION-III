@@ -4,50 +4,36 @@ package informacion;
 
 public class Servicio {
     
-    private int limp;
-    private int cafe;
-    private int spa;
-    private int gym;
+    private String servicio;
+    private int costo;
 
-    public Servicio(int limp, int cafe, int spa, int gym) {
-        this.limp = limp;
-        this.cafe = cafe;
-        this.spa = spa;
-        this.gym = gym;
+    public Servicio(String servicio, int costo) {
+        this.servicio=servicio;
+        this.costo=costo;
     }
 
-    public int getLimp() {
-        return limp;
+    public String getServicio() {
+        return servicio;
     }
 
-    public void setLimp(int limp) {
-        this.limp = limp;
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
     }
 
-    public int getCafe() {
-        return cafe;
+    public int getCosto() {
+        return costo;
     }
 
-    public void setCafe(int cafe) {
-        this.cafe = cafe;
+    public void setCosto(int costo) {
+        this.costo = costo;
     }
 
-    public int getSpa() {
-        return spa;
+    @Override
+    public String toString() {
+        return "Servicio=" + servicio + ", costo=" + costo;
     }
 
-    public void setSpa(int spa) {
-        this.spa = spa;
-    }
-
-    public int getGym() {
-        return gym;
-    }
-
-    public void setGym(int gym) {
-        this.gym = gym;
-    }
-    
+   
     
     
 }

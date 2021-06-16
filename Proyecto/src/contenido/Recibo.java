@@ -31,7 +31,7 @@ public class Recibo extends javax.swing.JFrame {
     }
         
     public void Comprobante(int habi){
-       
+       String fam="Familiar", ind="Individual",dob="Doble";
        int personas=0;
          String query = "select * from registro where Num_Habitacion = "+"'"+habi+"'";
          
@@ -69,12 +69,12 @@ public class Recibo extends javax.swing.JFrame {
                     this.jLabelOut.setText(this.conn.rs.getString(10));
                     
                     
-            if(habi>=1&&habi<=10||habi>=16&&habi<=20){
+            if(this.conn.rs.getString(2).equalsIgnoreCase(ind)){
                         this.jLabelLHues.setText("1");
-            }else if(habi>=11&&habi<=13||habi>=21&&habi<=26){
+            }else if(this.conn.rs.getString(2).equalsIgnoreCase(dob)){
                 this.jLabelLHues.setText("2");
-            }else{
-               this.jLabelLHues.setText("3");
+            }else if(this.conn.rs.getString(2).equalsIgnoreCase(fam)){
+               this.jLabelLHues.setText("4");
             }
                     
                     
