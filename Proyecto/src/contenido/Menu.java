@@ -2,22 +2,38 @@
 package contenido;
 
 import clasesinternas.*;
+import informacion.MySqlConn;
+import informacion.Servicio;
 import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
 
 public class Menu extends javax.swing.JFrame {
     AudioClip Sonido;
+    
+    
+    MySqlConn conn=new MySqlConn();
     public Menu() {
         initComponents();
         musicaInicializar();
         this.setLocationRelativeTo(this);                 
     }
     
+    
+    
     public void musicaInicializar(){
         Sonido = java.applet.Applet.newAudioClip(getClass().getResource("/musica/Torero.wav"));
-        Sonido.play();
+        //Sonido.play();
         ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/bocina1.png"));
         Image conversion = imagen.getImage();
         Image tam = conversion.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
@@ -48,16 +64,21 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabelReproducirMusica = new javax.swing.JLabel();
         jLabelDetenerMusica = new javax.swing.JLabel();
-        jButtonEstadisticas = new javax.swing.JButton();
         jButtonIngresos = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemEntradas = new javax.swing.JMenuItem();
         jMenuItemSalidas = new javax.swing.JMenuItem();
         jMenuItemHuespedes = new javax.swing.JMenuItem();
-        jMenuItemServiciosExtra = new javax.swing.JMenuItem();
-        jMenuConsultas = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
         jMenuItemGaleria = new javax.swing.JMenuItem();
+        jMenuItemCon3 = new javax.swing.JMenuItem();
+        jMenuItemCon4 = new javax.swing.JMenuItem();
+        jMenuItemCon5 = new javax.swing.JMenuItem();
+        jMenuItemCon6 = new javax.swing.JMenuItem();
+        jMenuItemCon8 = new javax.swing.JMenuItem();
+        jMenuItemCon12 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,8 +127,6 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabelDetenerMusica, jLabelReproducirMusica});
 
-        jButtonEstadisticas.setText("Estadisticas");
-
         jButtonIngresos.setText("Ingresos Totales");
         jButtonIngresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,8 +143,6 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonEstadisticas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonIngresos)
                 .addGap(19, 19, 19))
         );
@@ -134,13 +151,10 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jDesktopPaneEscritorioLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
-                .addGroup(jDesktopPaneEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonIngresos)
-                    .addComponent(jButtonEstadisticas))
+                .addComponent(jButtonIngresos)
                 .addContainerGap())
         );
         jDesktopPaneEscritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPaneEscritorio.setLayer(jButtonEstadisticas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPaneEscritorio.setLayer(jButtonIngresos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Menu");
@@ -169,15 +183,15 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemHuespedes);
 
-        jMenuItemServiciosExtra.setText("Servicios extra");
-        jMenuItemServiciosExtra.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Servicios extra");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemServiciosExtraActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemServiciosExtra);
+        jMenu1.add(jMenuItem1);
 
-        jMenuConsultas.setText("Consultas");
+        jMenu2.setText("Consultas");
 
         jMenuItemGaleria.setText("Galeria");
         jMenuItemGaleria.addActionListener(new java.awt.event.ActionListener() {
@@ -185,9 +199,57 @@ public class Menu extends javax.swing.JFrame {
                 jMenuItemGaleriaActionPerformed(evt);
             }
         });
-        jMenuConsultas.add(jMenuItemGaleria);
+        jMenu2.add(jMenuItemGaleria);
 
-        jMenu1.add(jMenuConsultas);
+        jMenuItemCon3.setText("Ocupacion por habitacion");
+        jMenuItemCon3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon3);
+
+        jMenuItemCon4.setText("Total de habitaciones");
+        jMenuItemCon4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon4);
+
+        jMenuItemCon5.setText("Ocupacion del hotel");
+        jMenuItemCon5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon5);
+
+        jMenuItemCon6.setText("Precios de habitacion");
+        jMenuItemCon6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon6);
+
+        jMenuItemCon8.setText("Buscar huesped");
+        jMenuItemCon8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon8);
+
+        jMenuItemCon12.setText("Personas con servicios");
+        jMenuItemCon12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon12ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon12);
+
+        jMenu1.add(jMenu2);
 
         jMenuBar1.add(jMenu1);
 
@@ -271,7 +333,7 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonIngresosActionPerformed
 
-    private void jMenuItemServiciosExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServiciosExtraActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         
          Servicios ser= new Servicios();
@@ -279,7 +341,37 @@ public class Menu extends javax.swing.JFrame {
         ser.show();
         
         
-    }//GEN-LAST:event_jMenuItemServiciosExtraActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItemCon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon3ActionPerformed
+     consulta3();
+     
+    }//GEN-LAST:event_jMenuItemCon3ActionPerformed
+
+    private void jMenuItemCon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon4ActionPerformed
+     consulta4();
+    }//GEN-LAST:event_jMenuItemCon4ActionPerformed
+
+    private void jMenuItemCon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon5ActionPerformed
+        // TODO add your handling code here:
+        consulta5();
+    }//GEN-LAST:event_jMenuItemCon5ActionPerformed
+
+    private void jMenuItemCon6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon6ActionPerformed
+        // TODO add your handling code here:
+       // consulta6();
+        
+    }//GEN-LAST:event_jMenuItemCon6ActionPerformed
+
+    private void jMenuItemCon8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon8ActionPerformed
+        // TODO add your handling code here:
+        //consulta8();
+    }//GEN-LAST:event_jMenuItemCon8ActionPerformed
+
+    private void jMenuItemCon12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon12ActionPerformed
+        // TODO add your handling code here:
+      //  consulta12();
+    }//GEN-LAST:event_jMenuItemCon12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,21 +407,158 @@ public class Menu extends javax.swing.JFrame {
             }
         });
     }
+ public void consulta3(){
+        String sen="Individual";
+        String dob="Doble";
+        String fam="Familiar";
+        int senc=0,dobl=0,fami=0;
+        //int tot=0;
+        String query = "select * from registro";
+        this.conn.Consult(query);
+        int n=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        
+        if(n!=0){
+            for (int i = 0; i < n; i++) {
+                 try{
+                    if(this.conn.rs.getString(2).equalsIgnoreCase(sen)){
+                        senc=senc+1;
+                    }else if(this.conn.rs.getString(2).equalsIgnoreCase(dob)){
+                        dobl=dobl+1;
+                    }else if(this.conn.rs.getString(2).equalsIgnoreCase(fam)){
+                        fami=fami+1;
+                    }
+
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No hay datos");
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay datos");
+        }
+       System.out.println(senc+" "+dobl+" "+fami);
+       
+            DefaultPieDataset data = new DefaultPieDataset();
+            data.setValue("Sencilla", senc);
+            data.setValue("Doble", dobl);
+            data.setValue("Familiar", fami); 
+            JFreeChart chart = ChartFactory.createPieChart(
+             "Hotel Chayanne\n Ocupacion por tipo de habitacion\n Habitaciones en uso: "+n,data, true, true, false);
+
+            ChartFrame frame = new ChartFrame("CHAYANNE", chart);
+            frame.pack();
+            frame.setLocationRelativeTo(this);
+            frame.setVisible(true);
+  
+    }
+public void consulta4(){
+    //total de habitaciones
+    String sen="Individual";
+        String dob="Doble";
+        String fam="Familiar";
+        int senc=0,dobl=0,fami=0;
+    String query = "select * from habitaciones";
+        this.conn.Consult(query);
+        int n=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        
+        if(n!=0){
+            for (int i = 0; i < n; i++) {
+                 try{
+                    if(this.conn.rs.getString(1).equalsIgnoreCase(sen)){
+                        senc=this.conn.rs.getInt(2);
+                    }else if(this.conn.rs.getString(1).equalsIgnoreCase(dob)){
+                        dobl=this.conn.rs.getInt(2);
+                    }else if(this.conn.rs.getString(1).equalsIgnoreCase(fam)){
+                        fami=this.conn.rs.getInt(2);
+                    }
+
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No hay datos");
+                }
+            }
+        }
+        System.out.println(senc+" "+dobl+" "+fami);
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(senc, "Individual", "Individual");
+        dataset.setValue(dobl, "Doble", "Doble");
+        dataset.setValue(fami, "Familiar", "Familiar");
+    
+
+        JFreeChart chart = ChartFactory.createBarChart3D
+        ("Hotel Chayanne","Tipo de habitacion", "Cantidad de habitaciones", 
+        dataset, PlotOrientation.HORIZONTAL, true,true, false);
+        
+
+        ChartFrame chartFrame = new ChartFrame("CHAYANNE",chart);
+        chartFrame.pack();
+        chartFrame.setVisible(true);
+        chartFrame.setLocationRelativeTo(null);
+   
+}
+public void consulta5(){
+     String query = "select * from registro";
+        this.conn.Consult(query);
+        int n=0,dis=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+        }catch(Exception e){
+            System.out.println("Error 1...");
+        }
+        dis=30-n;
+       
+
+       
+            DefaultPieDataset data = new DefaultPieDataset();
+            data.setValue("Disponible", dis);
+            data.setValue("Ocupado", n); 
+            JFreeChart chart = ChartFactory.createPieChart(
+             "Hotel Chayanne\n Ocupacion del hotel",data, true, true, false);
+
+            ChartFrame frame = new ChartFrame("CHAYANNE", chart);
+            frame.pack();
+            frame.setLocationRelativeTo(this);
+            frame.setVisible(true);
+  
+    }
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonEstadisticas;
     private javax.swing.JButton jButtonIngresos;
     private javax.swing.JDesktopPane jDesktopPaneEscritorio;
     private javax.swing.JLabel jLabelDetenerMusica;
     private javax.swing.JLabel jLabelReproducirMusica;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuConsultas;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemCon12;
+    private javax.swing.JMenuItem jMenuItemCon3;
+    private javax.swing.JMenuItem jMenuItemCon4;
+    private javax.swing.JMenuItem jMenuItemCon5;
+    private javax.swing.JMenuItem jMenuItemCon6;
+    private javax.swing.JMenuItem jMenuItemCon8;
     private javax.swing.JMenuItem jMenuItemEntradas;
     private javax.swing.JMenuItem jMenuItemGaleria;
     private javax.swing.JMenuItem jMenuItemHuespedes;
     private javax.swing.JMenuItem jMenuItemSalidas;
-    private javax.swing.JMenuItem jMenuItemServiciosExtra;
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
