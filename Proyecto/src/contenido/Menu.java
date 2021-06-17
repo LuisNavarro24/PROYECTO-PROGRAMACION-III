@@ -2,6 +2,7 @@
 package contenido;
 
 import clasesinternas.*;
+import consultas.Consulta3;
 import informacion.MySqlConn;
 import informacion.Servicio;
 import java.applet.AudioClip;
@@ -359,18 +360,18 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItemCon6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon6ActionPerformed
         // TODO add your handling code here:
-       // consulta6();
+        consulta6();
         
     }//GEN-LAST:event_jMenuItemCon6ActionPerformed
 
     private void jMenuItemCon8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon8ActionPerformed
         // TODO add your handling code here:
-        //consulta8();
+        consulta8();
     }//GEN-LAST:event_jMenuItemCon8ActionPerformed
 
     private void jMenuItemCon12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon12ActionPerformed
         // TODO add your handling code here:
-      //  consulta12();
+       consulta12();
     }//GEN-LAST:event_jMenuItemCon12ActionPerformed
 
     /**
@@ -538,7 +539,91 @@ public void consulta5(){
   
     }
 
- 
+ public void consulta6(){
+    
+    Icon img = new ImageIcon(getClass().getResource("/imagenes/Fondo.jpg"));
+    JOptionPane.showMessageDialog(rootPane,"Individual:  $900/dia\n"
+                                          +"Doble:  $1200/dia\n"
+                                          +"Familiar:  $1800/dia","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+    }    
+public void consulta8(){
+    
+    int habi=0;
+    habi=Integer.parseInt(JOptionPane.showInputDialog("Habitacion del huesped: "));
+    String query = "select * from registro where Num_Habitacion ="+"'"+habi+"'";
+    this.conn.Consult(query);
+    String nombre="";
+    Icon img = new ImageIcon(getClass().getResource("/imagenes/Logo.png"));
+    int n=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+            if(n!=0){
+                nombre=this.conn.rs.getString(4);
+                JOptionPane.showMessageDialog(rootPane,"Nombre del huesped: "+nombre,"Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+            }else{
+                JOptionPane.showMessageDialog(rootPane,"Habitacion no ocupada","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+            }
+            
+        }catch(Exception e){
+            System.out.println("Error loco...");
+        }
+        
+      
+}  
+
+public void consulta12(){
+    //Pide el nombre del huesped e imprime la lista de servicios extra(Spa,Gym,Cafeteria,limpieza,Niñera)
+    String nombre=JOptionPane.showInputDialog("Nombre del huesped: ");
+    String query = "select * from servicios where Nombre ="+"'"+nombre+"'";
+    this.conn.Consult(query);
+    Icon img = new ImageIcon(getClass().getResource("/imagenes/Logo.png"));
+    int n=0;
+    String ser="";
+    int aux=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+            if(n!=0){
+                 if(this.conn.rs.getInt(3)==1){
+                       ser+="Limpieza\n"; 
+                       aux=aux+1;
+                    }
+                    if(this.conn.rs.getInt(4)==1){
+                        ser+="Cafeteria\n";
+                        aux=aux+1;
+                    }
+                    if(this.conn.rs.getInt(5)==1){
+                        ser+="Spa\n";
+                         aux=aux+1; 
+                    }
+                    if(this.conn.rs.getInt(6)==1){
+                        ser+="Gimnasio";
+                        aux=aux+1;
+                    }
+               // System.out.println(n);
+                
+           if(aux==1)
+             JOptionPane.showMessageDialog(rootPane,"El huesped cuenta con el servicio de:\n "+ser,"Mensaje",JOptionPane.PLAIN_MESSAGE,img);   
+           else 
+             JOptionPane.showMessageDialog(rootPane,"El huesped cuenta con los servicios de:\n "+ser,"Mensaje",JOptionPane.PLAIN_MESSAGE,img);      
+           
+          
+            
+            }else{
+                JOptionPane.showMessageDialog(rootPane,"Huesped no registrado en el sistema de servicios","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+            }
+            
+        }catch(Exception e){
+            System.out.println("Error loco...");
+        }
+    
+    
+    
+    
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIngresos;
