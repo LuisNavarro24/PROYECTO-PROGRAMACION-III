@@ -25,6 +25,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemSalidasActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCambios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cambios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCambiosActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemHuespedes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Huespedes"/>
@@ -92,6 +100,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCon8ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Huespedes"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCon12">

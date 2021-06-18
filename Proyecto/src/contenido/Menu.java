@@ -34,7 +34,7 @@ public class Menu extends javax.swing.JFrame {
     
     public void musicaInicializar(){
         Sonido = java.applet.Applet.newAudioClip(getClass().getResource("/musica/Torero.wav"));
-        //Sonido.play();
+        Sonido.play();
         ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/bocina1.png"));
         Image conversion = imagen.getImage();
         Image tam = conversion.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
@@ -70,6 +70,7 @@ public class Menu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemEntradas = new javax.swing.JMenuItem();
         jMenuItemSalidas = new javax.swing.JMenuItem();
+        jMenuItemCambios = new javax.swing.JMenuItem();
         jMenuItemHuespedes = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -79,6 +80,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItemCon5 = new javax.swing.JMenuItem();
         jMenuItemCon6 = new javax.swing.JMenuItem();
         jMenuItemCon8 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemCon12 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -176,6 +178,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemSalidas);
 
+        jMenuItemCambios.setText("Cambios");
+        jMenuItemCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCambiosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemCambios);
+
         jMenuItemHuespedes.setText("Huespedes");
         jMenuItemHuespedes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +251,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItemCon8);
+
+        jMenuItem2.setText("Huespedes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
 
         jMenuItemCon12.setText("Personas con servicios");
         jMenuItemCon12.addActionListener(new java.awt.event.ActionListener() {
@@ -373,6 +391,25 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
        consulta12();
     }//GEN-LAST:event_jMenuItemCon12ActionPerformed
+
+    private void jMenuItemCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCambiosActionPerformed
+        // TODO add your handling code here:
+        
+        Cambios cam= new Cambios();
+        this.jDesktopPaneEscritorio.add(cam);
+        cam.show();
+        
+    }//GEN-LAST:event_jMenuItemCambiosActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+     Huespedes hue= new Huespedes();
+     this.jDesktopPaneEscritorio.add(hue);
+     hue.show();
+           
+        
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -600,8 +637,13 @@ public void consulta12(){
                          aux=aux+1; 
                     }
                     if(this.conn.rs.getInt(6)==1){
-                        ser+="Gimnasio";
+                        ser+="Gimnasio\n";
                         aux=aux+1;
+                    }
+                    if(this.conn.rs.getInt(7)==1){
+                        ser+="Niñera";
+                        aux=aux+1;
+                        
                     }
                // System.out.println(n);
                 
@@ -634,6 +676,8 @@ public void consulta12(){
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemCambios;
     private javax.swing.JMenuItem jMenuItemCon12;
     private javax.swing.JMenuItem jMenuItemCon3;
     private javax.swing.JMenuItem jMenuItemCon4;
