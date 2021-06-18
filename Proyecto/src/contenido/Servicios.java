@@ -1,10 +1,15 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package contenido;
 
 import informacion.MySqlConn;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 public class Servicios extends javax.swing.JInternalFrame {
 
@@ -19,6 +24,7 @@ public class Servicios extends javax.swing.JInternalFrame {
             this.jCheckBoxSpa.setEnabled(false);
             this.jCheckBoxGimnasio.setEnabled(false);
             this.jButtonGuardar.setEnabled(false);
+            this.jCheckBoxNin.setEnabled(false);
     }
 
     /**
@@ -40,10 +46,8 @@ public class Servicios extends javax.swing.JInternalFrame {
         jCheckBoxLimpieza = new javax.swing.JCheckBox();
         jCheckBoxCafeteria = new javax.swing.JCheckBox();
         jCheckBoxSpa = new javax.swing.JCheckBox();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaInfo = new javax.swing.JTextArea();
         jCheckBoxGimnasio = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        jCheckBoxNin = new javax.swing.JCheckBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -92,82 +96,67 @@ public class Servicios extends javax.swing.JInternalFrame {
         jCheckBoxSpa.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jCheckBoxSpa.setText("Spa");
 
-        jTextAreaInfo.setColumns(20);
-        jTextAreaInfo.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaInfo);
-
+        jCheckBoxGimnasio.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jCheckBoxGimnasio.setText("Gimnasio");
 
-        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton1.setText("Limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jCheckBoxNin.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jCheckBoxNin.setText("Niñera");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldHabi, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonGuardar)
-                            .addComponent(jCheckBoxLimpieza)
-                            .addComponent(jCheckBoxCafeteria)
-                            .addComponent(jCheckBoxSpa)
-                            .addComponent(jCheckBoxGimnasio)
-                            .addComponent(jButton1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(6, 6, 6)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxLimpieza)
+                                .addGap(10, 10, 10)
+                                .addComponent(jCheckBoxCafeteria)
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonGuardar)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxSpa)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jCheckBoxGimnasio)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jCheckBoxNin)))))))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jTextFieldHabi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCheckBoxLimpieza)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxCafeteria)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxSpa)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxGimnasio)
-                        .addGap(25, 25, 25)
-                        .addComponent(jButtonGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel2)))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxLimpieza)
+                    .addComponent(jCheckBoxCafeteria)
+                    .addComponent(jCheckBoxSpa)
+                    .addComponent(jCheckBoxGimnasio)
+                    .addComponent(jCheckBoxNin))
+                .addGap(45, 45, 45)
+                .addComponent(jButtonGuardar)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,6 +196,7 @@ public class Servicios extends javax.swing.JInternalFrame {
             this.jCheckBoxSpa.setEnabled(true);
             this.jCheckBoxGimnasio.setEnabled(true);
             this.jButtonGuardar.setEnabled(true);
+            this.jCheckBoxNin.setEnabled(true);
             
             Object datos [][]= new Object[n][10];
             for (int i = 0; i < n; i++) {
@@ -230,6 +220,7 @@ public class Servicios extends javax.swing.JInternalFrame {
             this.jCheckBoxCafeteria.setEnabled(false);
             this.jCheckBoxSpa.setEnabled(false);
             this.jCheckBoxGimnasio.setEnabled(false);
+            this.jCheckBoxNin.setEnabled(false);
             this.jButtonGuardar.setEnabled(false);
         }
         
@@ -259,17 +250,15 @@ public class Servicios extends javax.swing.JInternalFrame {
         }
         if(n!=0){
                 try{
-                
                     name= this.conn.rs.getString(4);
                     
                     //this.conn.rs.next();
                 }catch(Exception e){
                     System.out.println("Error 2...");
                 }
- 
-        }
-        
-        int lim,caf,spa,gim;
+                
+                
+           int lim,caf,spa,gim,nin;
         if(this.jCheckBoxLimpieza.isSelected()){
             lim=1;
         }else{
@@ -290,42 +279,40 @@ public class Servicios extends javax.swing.JInternalFrame {
         }else{
             gim=0;
         }
+        if(this.jCheckBoxNin.isSelected()){
+            nin=1;
+        }else{
+            nin=0;
+        }
         
-         String parte1 = "Insert into servicios (Num_Habitacion, Nombre, Servicio_cuarto, Servicio_bar, Servicio_spa, Servicio_gym) VALUES (";
-                     String parte2 = "'"+habi+"','"+name+"','"+lim+"','"+caf+"','"+spa+"','"+gim+"')";
+         String parte1 = "Insert into servicios (Num_Habitacion, Nombre, Servicio_cuarto, Servicio_bar, Servicio_spa, Servicio_gym,Servicio_nin) VALUES (";
+                     String parte2 = "'"+habi+"','"+name+"','"+lim+"','"+caf+"','"+spa+"','"+gim+"','"+nin+"')";
                     String query2 = parte1 + parte2;
          this.conn.Update(query2);  
-         JOptionPane.showMessageDialog(this, "Guardado con exito");
+         JOptionPane.showMessageDialog(this, "Guardado con exito");     
+                
+ 
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay datos");
+        }
+        
+       dispose(); 
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.jTextAreaInfo.setText("");
-        this.jTextFieldHabi.setText("");
-        this.jCheckBoxLimpieza.setSelected(false);
-        this.jCheckBoxCafeteria.setSelected(false);
-        this.jCheckBoxSpa.setSelected(false);
-        this.jCheckBoxGimnasio.setSelected(false);
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JCheckBox jCheckBoxCafeteria;
     private javax.swing.JCheckBox jCheckBoxGimnasio;
     private javax.swing.JCheckBox jCheckBoxLimpieza;
+    private javax.swing.JCheckBox jCheckBoxNin;
     private javax.swing.JCheckBox jCheckBoxSpa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableInfo;
-    private javax.swing.JTextArea jTextAreaInfo;
     private javax.swing.JTextField jTextFieldHabi;
     // End of variables declaration//GEN-END:variables
 }

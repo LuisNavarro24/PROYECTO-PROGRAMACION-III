@@ -13,10 +13,13 @@ public class Huespedes extends javax.swing.JInternalFrame {
      */
     
     MySqlConn conn= new MySqlConn();
+    private int aux;
     public Huespedes() {
         initComponents();
         HuespedList();
     }
+
+  
     
     public void HuespedList(){
         String query = "select * from registro ORDER BY Nombre ASC";
@@ -31,18 +34,12 @@ public class Huespedes extends javax.swing.JInternalFrame {
             System.out.println("Error 1...");
         }
         if(n!=0){
-            Object datos [][]= new Object[n][9];
+            Object datos [][]= new Object[n][2];
             for (int i = 0; i < n; i++) {
                 try{
-                    datos[i][0]= this.conn.rs.getInt(1);
-                    datos[i][1]= this.conn.rs.getString(2);
-                    datos[i][2]= this.conn.rs.getInt(3);
-                    datos[i][3]= this.conn.rs.getString(4);
-                    datos[i][4]= this.conn.rs.getString(5);
-                    datos[i][5]= this.conn.rs.getInt(6);
-                    datos[i][6]= this.conn.rs.getInt(7);
-                    datos[i][7]= this.conn.rs.getString(8);
-                    datos[i][8]= this.conn.rs.getInt(9);
+                    datos[i][1]= this.conn.rs.getInt(1);
+                    datos[i][0]= this.conn.rs.getString(4);
+                    
                     
                     this.conn.rs.next();
                 }catch(Exception e){
@@ -50,14 +47,17 @@ public class Huespedes extends javax.swing.JInternalFrame {
                 }
                 
             }
-           String columnas[]={"Habitacion","Tipo","Piso","Nombre","Ciudad","Num_Huespedes","Huesped ex","Entrada","Dias/Fecha"};
+           String columnas[]={"Huesped","Habitacion"};
             jTableListado.setModel(new DefaultTableModel(datos,columnas));
-            System.out.println("Tabla lista");
+            //System.out.println("Tabla lista");
         }else{
             JOptionPane.showMessageDialog(this,"No hay datos...");
         
     }
     }
+    
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,4 +132,7 @@ public class Huespedes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableListado;
     // End of variables declaration//GEN-END:variables
+
+    
+    
 }

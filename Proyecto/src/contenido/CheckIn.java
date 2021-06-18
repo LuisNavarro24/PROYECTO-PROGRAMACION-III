@@ -45,6 +45,7 @@ public class CheckIn extends javax.swing.JInternalFrame {
         initComponents();
          fecha();
          totalhabit();
+         this.jTextFieldDias.setEnabled(false);
     }
     
     public void totalhabit(){
@@ -52,14 +53,24 @@ public class CheckIn extends javax.swing.JInternalFrame {
         String query = "select * from registro";
         this.conn.Consult(query);
         int n=0;
+        //int n2=30;
         int dispo=0;
         try{
             this.conn.rs.last();
             n=this.conn.rs.getRow();
             this.conn.rs.first();
-            System.out.println(n);
+          //  n=n2;
+           // System.out.println(n);
+            if(n==30){
+             this.jLabelDis.setText("HOTEL LLENO");
+             this.jButtonGuardar.setEnabled(false);
+             this.jTextFieldNomCliente.setEnabled(false);
+             this.jTextFieldHuespedes.setEnabled(false);
+             
+            }else{
             this.jLabelDis.setText(String.valueOf(30-n));
-        }catch(Exception e){
+            }
+            }catch(Exception e){
             System.out.println("Error 1...");
         }
         
@@ -121,6 +132,9 @@ public class CheckIn extends javax.swing.JInternalFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabelDis = new javax.swing.JLabel();
+        jSpinnerExtra = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabelDispo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 153, 153));
         setClosable(true);
@@ -142,7 +156,7 @@ public class CheckIn extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel2.setText("Habitacion");
 
-        jComboBoxHabitacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
+        jComboBoxHabitacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123", "124", "125", "126", "127", "128", "129", "130" }));
         jComboBoxHabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxHabitacionActionPerformed(evt);
@@ -217,6 +231,14 @@ public class CheckIn extends javax.swing.JInternalFrame {
         jLabelDis.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabelDis.setText("En espera");
 
+        jSpinnerExtra.setModel(new javax.swing.SpinnerNumberModel(0, 0, 15, 1));
+
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel5.setText("Disponibilidad: ");
+
+        jLabelDispo.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabelDispo.setText("En espera...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -225,25 +247,21 @@ public class CheckIn extends javax.swing.JInternalFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabeldispo)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(43, 43, 43)
-                                .addComponent(jLabelFechaIn)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(231, 231, 231)
+                                .addGap(409, 409, 409)
                                 .addComponent(jLabelExtra))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
+                                .addGap(101, 101, 101)
+                                .addComponent(jLabel6)
+                                .addGap(28, 28, 28)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(39, 39, 39)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextFieldHuespedes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addGap(40, 40, 40)
                         .addComponent(jComboBoxExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,16 +275,24 @@ public class CheckIn extends javax.swing.JInternalFrame {
                                 .addComponent(jButtonGuardar)
                                 .addGap(42, 42, 42)
                                 .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldDias, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(66, 66, 66)
+                                        .addComponent(jTextFieldDias, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jSpinnerExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(17, 17, 17))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(84, 84, 84)
-                                        .addComponent(jComboBoxHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelDispo)
+                                            .addComponent(jComboBoxHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabeltipo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -274,11 +300,17 @@ public class CheckIn extends javax.swing.JInternalFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(jButtonChecar))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabelNombre)
-                        .addGap(32, 32, 32)
-                        .addComponent(jTextFieldNomCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabelNombre)
+                                .addGap(32, 32, 32)
+                                .addComponent(jTextFieldNomCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabelFechaIn)
+                                .addGap(126, 126, 126)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -288,7 +320,16 @@ public class CheckIn extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabeldispo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,7 +337,8 @@ public class CheckIn extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabelDis))
+                    .addComponent(jLabelDis)
+                    .addComponent(jLabelFechaIn))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
@@ -315,32 +357,46 @@ public class CheckIn extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonChecar)
                             .addComponent(jLabel3))))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldHuespedes)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboBoxExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabeldispo)
-                    .addComponent(jLabelExtra))
-                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jComboBoxExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabelDispo))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jTextFieldHuespedes))))
+                .addComponent(jLabelExtra)
+                .addGap(1, 1, 1)
+                .addComponent(jLabeldispo)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabelFechaIn)
                             .addComponent(jLabel7)
-                            .addComponent(jTextFieldDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonGuardar)
-                            .addComponent(jButton2))
-                        .addGap(116, 116, 116))
+                            .addComponent(jSpinnerExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonGuardar)
+                                    .addComponent(jButton2))
+                                .addGap(116, 116, 116))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jTextFieldDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel6)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -376,21 +432,23 @@ public class CheckIn extends javax.swing.JInternalFrame {
         //piso=Integer.valueOf(jComboBoxPiso.getSelectedItem().toString());
         //habi=jComboBoxHabitacion.getSelectedIndex();
         habi=Integer.valueOf(jComboBoxHabitacion.getSelectedItem().toString());
-        System.out.println(habi);
-        if(habi<=15){
+        //System.out.println(habi);
+        if(habi<=115){
             piso=1;
         }else{
             piso=2;
         }
         totpersonas=Integer.valueOf(this.jTextFieldHuespedes.getText().trim());
         extra=jComboBoxExtra.getSelectedIndex();
-        dias=Integer.valueOf(this.jTextFieldDias.getText().trim());
+        
+        //dias=Integer.valueOf(this.jTextFieldDias.getText().trim());
+        dias=Integer.valueOf(this.jSpinnerExtra.getValue().toString());
       
         
-        if((habi>=1&&habi<=10)||(habi>=16&&habi<=20)){
+        if((habi>=101&&habi<=110)||(habi>=116&&habi<=120)){
             tipo_habi=1;
             habit="Individual";
-        }else if((habi>=11&&habi<=13)||(habi>=21&&habi<=26)){
+        }else if((habi>=111&&habi<=113)||(habi>=121&&habi<=126)){
             tipo_habi=2;
             habit="Doble";
         }else{
@@ -407,21 +465,28 @@ public class CheckIn extends javax.swing.JInternalFrame {
         }
         
       
+      
         
-        Calendar fecha = new GregorianCalendar();  
-        int anio = fecha.get(Calendar.YEAR);
-        int mes = fecha.get(Calendar.MONTH);
-        int dia = fecha.get(Calendar.DAY_OF_MONTH);  
-       mes+=1;
-        String dia2=String.valueOf(anio);
-        String mes2=String.valueOf(mes);
-        String anio2=String.valueOf(dia);
+        String dia,mes,anio;
         
-        Calendar fechanueva=Calendar.getInstance();
+       
+        
+        int diafecha=this.jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
+        int mesfecha=this.jDateChooser1.getCalendar().get(Calendar.MONTH);
+        int aniofecha=this.jDateChooser1.getCalendar().get(Calendar.YEAR);
+        
+        dia=String.valueOf(diafecha);
+        mes=String.valueOf(mesfecha);
+        anio=String.valueOf(aniofecha);
+        //instancia del objeto para manipular la fecha
+       Calendar fechanueva=Calendar.getInstance();
+       //Se agrega la fecha
+        fechanueva.set(Integer.parseInt(anio), Integer.parseInt(mes), Integer.parseInt(dia));
+        
+   
         Calendar fechanueva2=Calendar.getInstance();
-        fechanueva2.set(anio,mes,dia);
+        fechanueva2.set(Integer.parseInt(anio), Integer.parseInt(mes), Integer.parseInt(dia));
         
-        fechanueva.set(anio,mes,dia);
         fechanueva2.add(Calendar.DAY_OF_MONTH, dias);
         
         SimpleDateFormat dateformat=new SimpleDateFormat("yyyy-MM-dd");
@@ -434,7 +499,7 @@ public class CheckIn extends javax.swing.JInternalFrame {
         //Aqui dentro esta para el array
         Registro registro = new Registro(nombre,ciudad,habit,piso,habi,totpersonas,extra,dias,tarifa);
         lista.add(registro);
-        System.out.println(lista);
+        //System.out.println(lista);
         
         //aqui va para la base de datos
         String parte1 = "Insert into registro (Num_Habitacion, Tipo_Habitacion, Piso, Nombre, Ciudad, Num_Huespedes, Num_HuespedesExtra, Entrada, Dias, salida) VALUES (";
@@ -465,7 +530,7 @@ public class CheckIn extends javax.swing.JInternalFrame {
             personas=Integer.valueOf(this.jTextFieldHuespedes.getText().trim());
             habi=Integer.valueOf(jComboBoxHabitacion.getSelectedItem().toString());
             
-            if(habi>=1&&habi<=10||habi>=16&&habi<=20){
+            if(habi>=101&&habi<=110||habi>=116&&habi<=120){
                 if(personas>1){
                     this.jLabeldispo.setText("Cantidad no disponible");
                     this.jButtonGuardar.setEnabled(false);
@@ -473,7 +538,7 @@ public class CheckIn extends javax.swing.JInternalFrame {
                     this.jLabeldispo.setText("Cantidad disponible");
                     this.jButtonGuardar.setEnabled(true);
                 }
-            }else if(habi>=11&&habi<=13||habi>=21&&habi<=26){
+            }else if(habi>=111&&habi<=113||habi>=121&&habi<=126){
                 if(personas>2){
                     this.jLabeldispo.setText("Cantidad no disponible");
                     this.jButtonGuardar.setEnabled(false);
@@ -500,26 +565,67 @@ public class CheckIn extends javax.swing.JInternalFrame {
         int habi=0;
         habi=Integer.valueOf(jComboBoxHabitacion.getSelectedItem().toString());
         
-        if(habi>=1&&habi<=10||habi>=16&&habi<=20){
-               if(habi>=1&&habi<=10){
+        if(habi>=101&&habi<=110||habi>=116&&habi<=120){
+               if(habi>=11&&habi<=110){
                    this.jLabeltipo.setText("Individual en piso 1");
                }else{
                    this.jLabeltipo.setText("Individual en piso 2");
                }
-            }else if(habi>=11&&habi<=13||habi>=21&&habi<=26){
-               if(habi>=11&&habi<=13){
+            }else if(habi>=111&&habi<=113||habi>=121&&habi<=126){
+               if(habi>=111&&habi<=113){
                    this.jLabeltipo.setText("Doble en piso 1");
                }else{
                    this.jLabeltipo.setText("Doble en piso 2");
                } 
             }else{
-                if(habi>=14&&habi<=15){
+                if(habi>=114&&habi<=115){
                    this.jLabeltipo.setText("Familiar en piso 1");
                }else{
                    this.jLabeltipo.setText("Familiar en piso 2");
                }
             }
             
+        String query2= "select * from registro where Num_Habitacion= "+"'"+habi+"'";
+        this.conn.Consult(query2);
+        int n =0;
+        boolean band=false;
+        try{
+            this.conn.rs.last();
+            n= this.conn.rs.getRow();
+            this.conn.rs.first();
+            
+        }catch(Exception e){
+            System.out.println("No hay datos");
+        }
+        if(n!=0){
+            //Object datos [][]= new Object[n][10];
+            for (int i = 0; i < n; i++) {
+                try{
+                    if(habi==this.conn.rs.getInt(1)){
+                        band=true;
+                    }
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    System.out.println("Error...");
+                }
+                
+            }
+            
+        if(band==true){
+            this.jLabelDispo.setText("No disponible");
+            this.jButtonGuardar.setEnabled(false);
+            this.jTextFieldHuespedes.setEnabled(false);
+        }else{
+            
+        }    
+  
+        }else{
+            this.jLabelDispo.setText("Disponible");
+            this.jButtonGuardar.setEnabled(true);
+            this.jTextFieldHuespedes.setEnabled(true);
+        }
+        
+        
         
     }//GEN-LAST:event_jComboBoxHabitacionActionPerformed
 
@@ -548,17 +654,20 @@ public class CheckIn extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelDis;
+    private javax.swing.JLabel jLabelDispo;
     private javax.swing.JLabel jLabelExtra;
     private javax.swing.JLabel jLabelFechaIn;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabeldispo;
     private javax.swing.JLabel jLabeltipo;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinnerExtra;
     private javax.swing.JTextField jTextFieldCiudad;
     private javax.swing.JTextField jTextFieldDias;
     private javax.swing.JTextField jTextFieldHuespedes;

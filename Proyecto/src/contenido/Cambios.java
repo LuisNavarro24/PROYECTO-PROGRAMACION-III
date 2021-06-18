@@ -185,15 +185,12 @@ public class Cambios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jTextFieldHabi, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(332, 509, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addComponent(jTextFieldHabi, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(227, 227, 227)
-                            .addComponent(jLabel5)
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jLabel5)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,11 +504,11 @@ public class Cambios extends javax.swing.JInternalFrame {
             nin=0;
            
         }
-        System.out.println("limpieza"+lim);
-        System.out.println("Cafe"+caf);
-        System.out.println("Spa"+spa);
-        System.out.println("Gimnasio"+gim);
-        System.out.println("Ninera"+nin);
+        //System.out.println("limpieza"+lim);
+       // System.out.println("Cafe"+caf);
+       // System.out.println("Spa"+spa);
+       // System.out.println("Gimnasio"+gim);
+       // System.out.println("Ninera"+nin);
                
         
         query ="UPDATE servicios SET Num_Habitacion='"+habi+"',Nombre='" +name+ "',Servicio_cuarto='" +lim+"',Servicio_bar='" +caf+"',Servicio_spa='" +spa+"',Servicio_gym='"+gim+"',Servicio_nin='" +nin+ "' WHERE Num_Habitacion='" + habi + "'"; 

@@ -61,7 +61,7 @@ public class Recibo extends javax.swing.JFrame {
                     personas=this.conn.rs.getInt(7);
                     if(personas==1){
                         this.jCheckBoxuno.setSelected(true);
-                    }else{
+                    }else if(personas==2){
                         this.jCheckBoxdos.setSelected(true);
                     }
                     this.jLabelIn.setText(this.conn.rs.getString(8));
@@ -120,6 +120,9 @@ public class Recibo extends javax.swing.JFrame {
         jLabelTiHabi = new javax.swing.JLabel();
         jLabelLHues = new javax.swing.JLabel();
         jLabelTHues = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -206,6 +209,18 @@ public class Recibo extends javax.swing.JFrame {
         jLabelTHues.setText("En espera...");
         jPanel1.add(jLabelTHues, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel2.setText("Paseo de los Cocoteros s/n, Flamingos, 63732 Nuevo Vallarta, Nay.");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Lema2.png"))); // NOI18N
+        jLabel12.setMaximumSize(new java.awt.Dimension(100, 50));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 260, 50));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Nombre2.png"))); // NOI18N
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -262,6 +277,9 @@ public class Recibo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

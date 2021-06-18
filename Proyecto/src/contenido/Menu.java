@@ -2,12 +2,14 @@
 package contenido;
 
 import clasesinternas.*;
-import consultas.Consulta3;
+
 import informacion.MySqlConn;
+import informacion.Piso;
 import informacion.Servicio;
 import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -24,6 +26,8 @@ public class Menu extends javax.swing.JFrame {
     
     
     MySqlConn conn=new MySqlConn();
+    
+     ArrayList <Piso> lista2 = new ArrayList();
     public Menu() {
         initComponents();
         musicaInicializar();
@@ -79,7 +83,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuItemCon4 = new javax.swing.JMenuItem();
         jMenuItemCon5 = new javax.swing.JMenuItem();
         jMenuItemCon6 = new javax.swing.JMenuItem();
+        jMenuItemCon7 = new javax.swing.JMenuItem();
         jMenuItemCon8 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemCon12 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
@@ -244,6 +250,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItemCon6);
 
+        jMenuItemCon7.setText("Buscar huesped(por nombre)");
+        jMenuItemCon7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCon7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemCon7);
+
         jMenuItemCon8.setText("Buscar huesped");
         jMenuItemCon8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +265,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItemCon8);
+
+        jMenuItem3.setText("Habitaciones disponibles por piso");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         jMenuItem2.setText("Huespedes");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -410,6 +432,16 @@ public class Menu extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItemCon7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCon7ActionPerformed
+        // TODO add your handling code here:
+        consulta7();
+    }//GEN-LAST:event_jMenuItemCon7ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        consulta9();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -582,11 +614,36 @@ public void consulta5(){
     JOptionPane.showMessageDialog(rootPane,"Individual:  $900/dia\n"
                                           +"Doble:  $1200/dia\n"
                                           +"Familiar:  $1800/dia","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
-    }    
+    }  
+public void consulta7(){
+    Icon img = new ImageIcon(getClass().getResource("/imagenes/Logo.png"));
+    String name=JOptionPane.showInputDialog("Nombre del huesped: ");
+    String query = "select * from registro where Nombre ="+"'"+name+"'";
+    this.conn.Consult(query);
+    
+    int n=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            this.conn.rs.first();
+            if(n!=0){
+                int piso=this.conn.rs.getInt(3);
+                int habi=this.conn.rs.getInt(1);
+                JOptionPane.showMessageDialog(rootPane,"Numero de habitacion: "+habi+" en piso "+piso,"Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+            }else{
+                JOptionPane.showMessageDialog(rootPane,"Huesped no registrado","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+            }
+            
+        }catch(Exception e){
+            System.out.println("Error loco...");
+        }
+    
+}
 public void consulta8(){
     
     int habi=0;
     habi=Integer.parseInt(JOptionPane.showInputDialog("Habitacion del huesped: "));
+    
     String query = "select * from registro where Num_Habitacion ="+"'"+habi+"'";
     this.conn.Consult(query);
     String nombre="";
@@ -609,6 +666,122 @@ public void consulta8(){
         
       
 }  
+
+public void consulta9(){
+    
+    
+    
+    int piso=0;         
+    piso=Integer.parseInt(JOptionPane.showInputDialog("Piso: "));
+    
+
+    
+    
+
+    if(piso==1){ 
+       
+        
+        
+    for (int j = 101; j <=115; j++) {
+         if(j>=101&&j<=110){
+        Piso ser= new Piso(j,"Individual");
+        lista2.add(ser);    
+        }else if(j>=111&&j<=113){
+        Piso ser= new Piso(j,"Doble");
+        lista2.add(ser);  
+        }else if(j>=114&&j<=115){
+        Piso ser= new Piso(j,"Triple");
+        lista2.add(ser);      
+        }
+        }   
+ 
+    }else{
+        
+        for (int j =116; j <130; j++) {
+       if(j>=116&&j<=120){
+      Piso ser= new Piso(j,"Individual");
+    lista2.add(ser);    
+           }else if(j>=121&&j<=126){
+          Piso ser= new Piso(j,"Doble");
+            lista2.add(ser);  
+             }else if(j>=127&&j<=130){
+               Piso ser= new Piso(j,"Triple");
+               lista2.add(ser);      
+              }
+                       
+        }             
+   }
+    
+    
+    
+    
+    
+    String query = "select * from registro where Piso ="+"'"+piso+"'";
+    this.conn.Consult(query);
+    Icon img = new ImageIcon(getClass().getResource("/imagenes/Logo.png"));
+     //int [] dis=new int[n]; 
+    int tam=6;
+    
+    int n=0;
+        try{
+            this.conn.rs.last();
+            n=this.conn.rs.getRow();
+            int [] disp=new int[n];
+            
+            this.conn.rs.first();
+            if(n!=0){
+                // Object datos [][]= new Object[n][10];
+                for (int i = 0; i < n; i++) {
+                 try{
+                   disp[i]=this.conn.rs.getInt(1);
+                   
+
+                    this.conn.rs.next();
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No hay datos");
+                }
+            } 
+                for (int i = 0; i < lista2.size(); i++) {
+                    for (int j = 0; j < disp.length; j++) {
+                    if(lista2.get(i).getHabi()==disp[j]){
+                        lista2.remove(i);
+                    }    
+                    }
+                    
+                    
+                }
+   
+                
+                
+               
+  JOptionPane.showMessageDialog(rootPane,"Habitaciones disponibles","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+            JOptionPane.showMessageDialog(rootPane,
+                   lista2.toString(),"Mensaje",JOptionPane.PLAIN_MESSAGE,img);    
+               /*for (int i = 0; i < lista2.size(); i++) {
+                lista2.remove(i);
+                     }*/
+            lista2.removeAll(lista2);
+          
+      }else{
+                
+                JOptionPane.showMessageDialog(rootPane,"Todas las habitaciones disponibles","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+                      /*for (int i = 0; i < lista2.size(); i++) {
+                lista2.remove(i);
+                     }*/
+            lista2.removeAll(lista2);
+                if(piso==1){
+                    JOptionPane.showMessageDialog(rootPane,"Individual de la 101 a la 110\nDoble de la 111 a la 113\nFamiliar la 114 y 115","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+                }else{
+                   JOptionPane.showMessageDialog(rootPane,"Individual de la 116 a la 120\nDoble de la 121 a la 126\nFamiliar de la 127 a la 130","Mensaje",JOptionPane.PLAIN_MESSAGE,img);
+                 
+                }
+                
+            }
+            
+        }catch(Exception e){
+            System.out.println("No hay datos...");
+        }
+}
 
 public void consulta12(){
     //Pide el nombre del huesped e imprime la lista de servicios extra(Spa,Gym,Cafeteria,limpieza,Niñera)
@@ -677,12 +850,14 @@ public void consulta12(){
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemCambios;
     private javax.swing.JMenuItem jMenuItemCon12;
     private javax.swing.JMenuItem jMenuItemCon3;
     private javax.swing.JMenuItem jMenuItemCon4;
     private javax.swing.JMenuItem jMenuItemCon5;
     private javax.swing.JMenuItem jMenuItemCon6;
+    private javax.swing.JMenuItem jMenuItemCon7;
     private javax.swing.JMenuItem jMenuItemCon8;
     private javax.swing.JMenuItem jMenuItemEntradas;
     private javax.swing.JMenuItem jMenuItemGaleria;
